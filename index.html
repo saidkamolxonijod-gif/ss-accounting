@@ -4,11 +4,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SS ACCOUNTING</title>
-<link href="./SS ACCOUNTING_files/css2" rel="stylesheet">
-<script src="./SS ACCOUNTING_files/xlsx.full.min.js.Без названия"></script>
-<script src="./SS ACCOUNTING_files/chart.umd.min.js.Без названия"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <!-- Supabase SDK to'g'ri versiyasi -->
-<script src="./SS ACCOUNTING_files/supabase.min.js.Без названия"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root{
   --bg:#0a0a0e;--sf:#13131a;--sf2:#1c1c26;--sf3:#242433;
@@ -762,8 +762,7 @@ async function loadData(){
 function stRow(s){
   return{id:s.id,name:s.name,phone:s.phone||'',student_group:s.group||'',
     default_amount:s.defaultAmount||0,total_months:s.totalMonths||6,
-    start_key:s.startKey||'',join_date:s.joinDate||'',grade:s.grade||'',note:s.note||'',
-    telegram_id:s.telegram_id||'',
+    start_key:s.startKey||'',join_date:s.joinDate||'',grade:s.grade||'',note:s.note||'',telegram_id:s.telegram_id||'',
     payments:s.payments||{},attendance:s.attendance||{},exams:s.exams||{},graduate:s.graduate||null};
 }
 
