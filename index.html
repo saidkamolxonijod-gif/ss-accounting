@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)https://saidkamolxonijod-gif.github.io/ss-accounting/ -->
-<html lang="uz"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SS ACCOUNTING</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <!-- Supabase SDK to'g'ri versiyasi -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
 :root{
   --bg:#0a0a0e;--sf:#13131a;--sf2:#1c1c26;--sf3:#242433;
@@ -248,46 +248,11 @@ tr:hover td{background:rgba(255,255,255,0.012);}
   header{padding:0.7rem 1rem;}
 }
 
-/* MAVZULAR BO'LIMI */
-.top-sect{background:var(--sf);border:1px solid var(--bd2);border-radius:var(--r);margin-bottom:1rem;overflow:hidden;}
-.top-sect-hdr{background:var(--sf2);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid var(--bd2);}
-.top-sect-title{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:500;color:var(--gold);}
-.top-sect-count{font-size:0.7rem;color:var(--tx3);background:var(--sf3);padding:0.15rem 0.5rem;border-radius:10px;}
-.top-list{padding:0.5rem;}
-.top-item{display:flex;align-items:center;gap:10px;padding:0.62rem 0.75rem;border-radius:8px;border:1px solid transparent;margin-bottom:4px;transition:all 0.2s;cursor:pointer;}
-.top-item:hover{background:var(--sf2);border-color:var(--bd2);}
-.top-num{width:28px;height:28px;border-radius:6px;background:var(--sf2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--tx3);font-weight:500;flex-shrink:0;}
-.top-info{flex:1;min-width:0;}
-.top-name{font-size:0.82rem;color:var(--tx);font-weight:500;line-height:1.35;}
-.top-meta{font-size:0.68rem;color:var(--tx3);margin-top:2px;}
-.top-slide{display:inline-flex;align-items:center;gap:3px;font-size:0.65rem;font-weight:500;padding:0.12rem 0.45rem;border-radius:4px;white-space:nowrap;}
-.top-slide.has{background:var(--grs);color:var(--gr);border:1px solid rgba(61,184,122,0.2);}
-.top-slide.no{background:var(--sf2);color:var(--tx3);border:1px solid var(--bd);}
-.top-actions{display:flex;gap:4px;flex-shrink:0;}
-.top-add-form{background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--r);padding:1rem;margin-bottom:1rem;}
-.top-add-form h4{font-size:0.82rem;font-weight:500;color:var(--tx);margin-bottom:0.75rem;}
-.top-fg{margin-bottom:0.6rem;}
-.top-fg label{display:block;font-size:0.65rem;color:var(--tx3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
-.top-fg input,.top-fg select,.top-fg textarea{width:100%;background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.45rem 0.75rem;outline:none;}
-.top-fg input:focus,.top-fg select:focus{border-color:var(--gold);}
-.top-fg input::placeholder{color:var(--tx3);}
-.top-fg select option{background:#1c1c26;}
-.top-fr{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.top-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem;}
-.top-stat{background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);padding:0.65rem;text-align:center;}
-.top-stat-n{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:2px;}
-.top-stat-l{font-size:0.6rem;color:var(--tx3);text-transform:uppercase;}
-/* MAVZU DETAIL MODAL */
-.slide-preview{background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--rs);padding:1rem;text-align:center;margin:0.75rem 0;}
-.slide-icon{font-size:2.5rem;margin-bottom:0.5rem;}
-.slide-name{font-size:0.8rem;color:var(--tx2);}
-
 /* === TELEGRAM XABAR MODAL === */
 .tgm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9999;align-items:center;justify-content:center;}
 .tgm-overlay.open{display:flex;}
 .tgm-box{background:var(--sf);border:1px solid var(--bd2);border-radius:var(--r);padding:1.5rem;width:94%;max-width:460px;max-height:90vh;overflow-y:auto;animation:su .2s ease;}
 .tgm-head{display:flex;align-items:center;gap:10px;margin-bottom:1.1rem;}
-.tgm-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#229ED9,#1a7faa);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
 .tgm-head h3{margin:0;font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:500;color:var(--tx);}
 .tgm-head p{margin:2px 0 0;font-size:0.68rem;color:var(--tx3);}
 .tgm-close{margin-left:auto;background:none;border:none;font-size:1.3rem;color:var(--tx3);cursor:pointer;line-height:1;padding:2px 6px;}
@@ -301,16 +266,14 @@ tr:hover td{background:rgba(255,255,255,0.012);}
 .tgm-ta::placeholder{color:var(--tx3);}
 .tgm-actions{display:flex;gap:8px;}
 .tgm-cancel{flex:1;padding:0.48rem;background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx2);font-family:'DM Sans',sans-serif;font-size:0.8rem;cursor:pointer;}
-.tgm-send{flex:2;padding:0.48rem;background:#229ED9;border:none;border-radius:var(--rs);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
-.tgm-send:hover{background:#1a7faa;}
+.tgm-send{flex:2;padding:0.48rem;background:#229ED9;border:none;border-radius:var(--rs);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;}
 .tgm-send:disabled{opacity:.5;cursor:not-allowed;}
 .tgm-no-id{background:var(--rds);border:1px solid rgba(224,92,92,0.2);border-radius:var(--rs);padding:0.65rem;font-size:0.75rem;color:var(--rd);margin-bottom:1rem;text-align:center;}
-/* jadval va detail tugmasi */
 .btn-tgsend{background:transparent;border:1px solid #229ED9;border-radius:5px;color:#229ED9;cursor:pointer;padding:0.18rem 0.4rem;font-size:10px;transition:all .15s;line-height:1;margin-left:2px;}
 .btn-tgsend:hover{background:#229ED9;color:#fff;}
-/* toast */
-.tgm-toast{position:fixed;bottom:24px;right:24px;padding:10px 18px;border-radius:10px;font-size:0.8rem;font-weight:500;color:#fff;z-index:99999;animation:su .2s ease;box-shadow:0 4px 16px rgba(0,0,0,.2);}
-.tgm-toast.ok{background:#16a34a;}.tgm-toast.err{background:#dc2626;}
+.tgm-toast{position:fixed;bottom:24px;right:24px;padding:10px 18px;border-radius:10px;font-size:0.8rem;font-weight:500;color:#fff;z-index:99999;box-shadow:0 4px 16px rgba(0,0,0,.2);}
+.tgm-toast.ok{background:#229ED9;}
+.tgm-toast.err{background:var(--rd);}
 </style>
 </head>
 <body>
@@ -331,8 +294,8 @@ tr:hover td{background:rgba(255,255,255,0.012);}
       <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
     </div>
     <button class="lbtn" id="loginBtn">Kirish →</button>
-    <div class="lerr" id="loginErr" style="display: none;">Login yoki parol noto'g'ri!</div>
-    <div class="lmsg" id="loginMsg" style="display: block;">⏳ Yuklanmoqda...</div>
+    <div class="lerr" id="loginErr">Login yoki parol noto'g'ri!</div>
+    <div class="lmsg" id="loginMsg">⏳ Yuklanmoqda...</div>
   </div>
 </div>
 
@@ -343,7 +306,7 @@ tr:hover td{background:rgba(255,255,255,0.012);}
     <div class="logo">SS ACCOUNTING<span>Buxgalteriya O'quv Markazi · 🌐 Online</span></div>
   </div>
   <div class="hr">
-    <div class="sbar"><span class="sdot sok" id="syncDot"></span><span id="syncTxt">✅ Saqlandi · 16:46:35</span></div>
+    <div class="sbar"><span class="sdot ssv" id="syncDot"></span><span id="syncTxt">Ulanmoqda...</span></div>
     <div class="msel">📅
       <select id="mSel" onchange="onMC()">
         <option value="0">Yanvar</option><option value="1">Fevral</option><option value="2">Mart</option>
@@ -351,41 +314,39 @@ tr:hover td{background:rgba(255,255,255,0.012);}
         <option value="6">Iyul</option><option value="7">Avgust</option><option value="8">Sentabr</option>
         <option value="9">Oktabr</option><option value="10">Noyabr</option><option value="11">Dekabr</option>
       </select>
-      <select id="ySel" onchange="onMC()"><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option></select>
+      <select id="ySel" onchange="onMC()"></select>
     </div>
     <div class="tnav">
-      <button class="tbtn active" onclick="swTab(&#39;payment&#39;,this)">💳 To'lov</button>
-      <button class="tbtn" onclick="swTab(&#39;attendance&#39;,this)">📅 Davomat</button>
-      <button class="tbtn" onclick="swTab(&#39;expense&#39;,this)">💸 Xarajat</button>
-      <button class="tbtn" onclick="swTab(&#39;graduates&#39;,this)">🎓 Bitiruvchi</button>
-      <button class="tbtn" onclick="swTab(&#39;reports&#39;,this)">📊 Hisobot</button>
-      <button class="tbtn" onclick="swTab(&#39;topics&#39;,this)">📚 Mavzular</button>
-      <button class="tbtn" onclick="swTab(&#39;messages&#39;,this)">📨 Xabarlar</button>
-      <button class="tbtn" onclick="swTab(&#39;backup&#39;,this)">💾 Zaxira</button>
+      <button class="tbtn active" onclick="swTab('payment',this)">💳 To'lov</button>
+      <button class="tbtn" onclick="swTab('attendance',this)">📅 Davomat</button>
+      <button class="tbtn" onclick="swTab('expense',this)">💸 Xarajat</button>
+      <button class="tbtn" onclick="swTab('graduates',this)">🎓 Bitiruvchi</button>
+      <button class="tbtn" onclick="swTab('reports',this)">📊 Hisobot</button>
+      <button class="tbtn" onclick="swTab('messages',this)">📨 Xabarlar</button>
+      <button class="tbtn" onclick="swTab('backup',this)">💾 Zaxira</button>
     </div>
     <button class="obtn" onclick="doLogout()">Chiqish</button>
   </div>
 </header>
 <div class="stbar">
-  <div class="st"><div class="sn cw" id="sTotal">49</div><div class="sl">Jami O'quvchi</div></div>
-  <div class="st"><div class="sn cgr" id="sPaid">2</div><div class="sl">To'lagan</div></div>
-  <div class="st"><div class="sn cr" id="sUnpaid">47</div><div class="sl">To'lamagan</div></div>
-  <div class="st"><div class="sn cg" id="sIncome">2,000,000</div><div class="sl">Bu Oy Daromad</div></div>
-  <div class="st"><div class="sn" style="color:#a78bfa" id="sAllIncome">76,550,000</div><div class="sl">Jami Daromad</div></div>
-  <div class="st"><div class="sn co" id="sBalance" style="color: var(--or);">2,000,000</div><div class="sl">Sof Foyda</div></div>
-  <div class="st"><div class="sn ct" id="sGrads">24</div><div class="sl">Bitiruvchilar</div></div>
+  <div class="st"><div class="sn cw" id="sTotal">0</div><div class="sl">Jami O'quvchi</div></div>
+  <div class="st"><div class="sn cgr" id="sPaid">0</div><div class="sl">To'lagan</div></div>
+  <div class="st"><div class="sn cr" id="sUnpaid">0</div><div class="sl">To'lamagan</div></div>
+  <div class="st"><div class="sn cg" id="sIncome">0</div><div class="sl">Bu Oy Daromad</div></div>
+  <div class="st"><div class="sn" style="color:#a78bfa" id="sAllIncome">0</div><div class="sl">Jami Daromad</div></div>
+  <div class="st"><div class="sn co" id="sBalance">0</div><div class="sl">Sof Foyda</div></div>
+  <div class="st"><div class="sn ct" id="sGrads">0</div><div class="sl">Bitiruvchilar</div></div>
 </div>
 <main>
 <div class="tc active" id="tab-payment">
   <div class="toolbar">
     <div class="sw"><span class="si">🔍</span><input type="text" id="searchInp" placeholder="Ism, telefon, guruh..." oninput="renderTable()"></div>
     <div class="fbtns">
-      <button class="fb active" onclick="setF(&#39;all&#39;,this)">Hammasi</button>
-      <button class="fb" onclick="setF(&#39;paid&#39;,this)">To'lagan ✓</button>
-      <button class="fb" onclick="setF(&#39;unpaid&#39;,this)">To'lamagan ✗</button>
-      <button class="fb" onclick="setF(&#39;debt&#39;,this)">Qarzdor 💰</button>
+      <button class="fb active" onclick="setF('all',this)">Hammasi</button>
+      <button class="fb" onclick="setF('paid',this)">To'lagan ✓</button>
+      <button class="fb" onclick="setF('unpaid',this)">To'lamagan ✗</button>
+      <button class="fb" onclick="setF('debt',this)">Qarzdor 💰</button>
     </div>
-    <select id="groupFilter" onchange="renderTable()" style="background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:&#39;DM Sans&#39;,sans-serif;font-size:0.72rem;padding:0.38rem 0.7rem;cursor:pointer;outline:none;"><option value="">👥 Barcha guruhlar (49)</option><option value="SS-1">SS-1 (6 ta)</option><option value="SS-10">SS-10 (8 ta)</option><option value="SS-11">SS-11 (6 ta)</option><option value="SS-2">SS-2 (3 ta)</option><option value="SS-3">SS-3 (4 ta)</option><option value="SS-4">SS-4 (3 ta)</option><option value="SS-5">SS-5 (2 ta)</option><option value="SS-6">SS-6 (3 ta)</option><option value="SS-7">SS-7 (3 ta)</option><option value="SS-8">SS-8 (3 ta)</option><option value="SS-9">SS-9 (6 ta)</option></select>
     <button class="xb g" onclick="expExcel()">📊 Excel</button>
     <button class="xb b" onclick="openDebt()">💰 Qarzlar</button>
     <button class="xb p" onclick="openExamRep()">📝 Imtihon</button>
@@ -394,7 +355,7 @@ tr:hover td{background:rgba(255,255,255,0.012);}
   <div class="tw">
     <table>
       <thead><tr><th>#</th><th>Ism/Guruh</th><th>To'lov/Oy</th><th>Muddat</th><th>To'lagan</th><th>Qarz</th><th>Imtihon</th><th>Baho</th><th>Izoh</th><th>Bu oy</th><th>Amal</th></tr></thead>
-      <tbody id="tBody"><tr><td><span class="nb">1</span></td><td class="nc">Javlon Islomov<br><span style="font-size:0.68rem;color:var(--tx3);font-weight:300">+998944940114 · SS-11</span></td><td><input class="ti" type="number" value="1000000" placeholder="so&#39;m" onchange="updAmt(1779712901374,this.value)" oninput="updAmt(1779712901374,this.value)"></td><td><div class="pw"><div class="pb"><div class="pf" style="width:33%;background:var(--rd)"></div></div><span class="pt">1/3</span></div></td><td><span style="color:var(--gr);font-weight:500;font-size:0.78rem">1,000,000</span><br><span style="font-size:0.65rem;color:var(--tx3)">/3,000,000 so'm</span></td><td><span class="dv has">-2,000,000 so'm</span></td><td><button class="act" onclick="openE4(1779712901374)" style="font-size:9px">+ Imtihon</button></td><td><select class="ts" onchange="updGrade(1779712901374,this.value)"><option value="" selected="">—</option><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></td><td><span class="nadd" onclick="openNote(1779712901374)">+ izoh</span></td><td><label class="tgl"><input type="checkbox" checked="" onchange="togPaid(1779712901374)"><span class="tsl"></span></label>&nbsp;<span class="badge bpd"><span class="bdot"></span>To'lagan</span></td><td style="white-space:nowrap"><button class="act wa" onclick="openWaMsg(1779712901374)" title="WhatsApp">📱</button><button class="btn-tgsend" onclick="openTgSend(1779712901374)" title="Telegram xabar">✈️</button><button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit(1779712901374)" title="Tahrirlash">✏️</button><button class="act nt" onclick="openNote(1779712901374)" title="Izoh">📝</button><button class="hbtn" onclick="openPH(1779712901374)" title="To&#39;lov tarixi">🗓</button><button class="act ex" onclick="openGrad(1779712901374)" title="Diplom">🎓</button><button class="act" onclick="delStudent(1779712901374)" title="O&#39;chirish">🗑</button></td></tr><tr><td><span class="nb">2</span></td><td class="nc">Abdujabborova Charos Jamoldin qizi<br><span style="font-size:0.68rem;color:var(--tx3);font-weight:300">+998884405158 · SS-11</span></td><td><input class="ti" type="number" value="1000000" placeholder="so&#39;m" onchange="updAmt(1779715028118,this.value)" oninput="updAmt(1779715028118,this.value)"></td><td><div class="pw"><div class="pb"><div class="pf" style="width:0%;background:var(--rd)"></div></div><span class="pt">0/3</span></div></td><td><span style="color:var(--gr);font-weight:500;font-size:0.78rem">0</span><br><span style="font-size:0.65rem;color:var(--tx3)">/3,000,000 so'm</span></td><td><span class="dv has">-3,000,000 so'm</span></td><td><button class="act" onclick="openE4(1779715028118)" style="font-size:9px">+ Imtihon</button></td><td><select class="ts" onchange="updGrade(1779715028118,this.value)"><option value="" selected="">—</option><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></td><td><span class="nadd" onclick="openNote(1779715028118)">+ izoh</span></td><td><label class="tgl"><input type="checkbox" onchange="togPaid(1779715028118)"><span class="tsl"></span></label>&nbsp;<span class="badge bup"><span class="bdot"></span>To'lamagan</span></td><td style="white-space:nowrap"><button class="act wa" onclick="openWaMsg(1779715028118)" title="WhatsApp">📱</button><button class="btn-tgsend" onclick="openTgSend(1779715028118)" title="Telegram xabar">✈️</button><button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit(1779715028118)" title="Tahrirlash">✏️</button><button class="act nt" onclick="openNote(1779715028118)" title="Izoh">📝</button><button class="hbtn" onclick="openPH(1779715028118)" title="To&#39;lov tarixi">🗓</button><button class="act ex" onclick="openGrad(1779715028118)" title="Diplom">🎓</button><button class="act" onclick="delStudent(1779715028118)" title="O&#39;chirish">🗑</button></td></tr><tr><td><span class="nb">3</span></td><td class="nc">Nazirov Akmal<br><span style="font-size:0.68rem;color:var(--tx3);font-weight:300">+998909357250 · SS-11</span></td><td><input class="ti" type="number" value="1000000" placeholder="so&#39;m" onchange="updAmt(1779715372027,this.value)" oninput="updAmt(1779715372027,this.value)"></td><td><div class="pw"><div class="pb"><div class="pf" style="width:0%;background:var(--rd)"></div></div><span class="pt">0/3</span></div></td><td><span style="color:var(--gr);font-weight:500;font-size:0.78rem">0</span><br><span style="font-size:0.65rem;color:var(--tx3)">/3,000,000 so'm</span></td><td><span class="dv has">-3,000,000 so'm</span></td><td><button class="act" onclick="openE4(1779715372027)" style="font-size:9px">+ Imtihon</button></td><td><select class="ts" onchange="updGrade(1779715372027,this.value)"><option value="" selected="">—</option><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></td><td><span class="nadd" onclick="openNote(1779715372027)">+ izoh</span></td><td><label class="tgl"><input type="checkbox" onchange="togPaid(1779715372027)"><span class="tsl"></span></label>&nbsp;<span class="badge bup"><span class="bdot"></span>To'lamagan</span></td><td style="white-space:nowrap"><button class="act wa" onclick="openWaMsg(1779715372027)" title="WhatsApp">📱</button><button class="btn-tgsend" onclick="openTgSend(1779715372027)" title="Telegram xabar">✈️</button><button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit(1779715372027)" title="Tahrirlash">✏️</button><button class="act nt" onclick="openNote(1779715372027)" title="Izoh">📝</button><button class="hbtn" onclick="openPH(1779715372027)" title="To&#39;lov tarixi">🗓</button><button class="act ex" onclick="openGrad(1779715372027)" title="Diplom">🎓</button><button class="act" onclick="delStudent(1779715372027)" title="O&#39;chirish">🗑</button></td></tr><tr><td><span class="nb">4</span></td><td class="nc">Abduqahhorov Abdurahim Abdurauf o'g'li<br><span style="font-size:0.68rem;color:var(--tx3);font-weight:300">+998977205755 · SS-11</span></td><td><input class="ti" type="number" value="1000000" placeholder="so&#39;m" onchange="updAmt(1779715905087,this.value)" oninput="updAmt(1779715905087,this.value)"></td><td><div class="pw"><div class="pb"><div class="pf" style="width:0%;background:var(--rd)"></div></div><span class="pt">0/3</span></div></td><td><span style="color:var(--gr);font-weight:500;font-size:0.78rem">0</span><br><span style="font-size:0.65rem;color:var(--tx3)">/3,000,000 so'm</span></td><td><span class="dv has">-3,000,000 so'm</span></td><td><button class="act" onclick="openE4(1779715905087)" style="font-size:9px">+ Imtihon</button></td><td><select class="ts" onchange="updGrade(1779715905087,this.value)"><option value="" selected="">—</option><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></td><td><span class="nadd" onclick="openNote(1779715905087)">+ izoh</span></td><td><label class="tgl"><input type="checkbox" onchange="togPaid(1779715905087)"><span class="tsl"></span></label>&nbsp;<span class="badge bup"><span class="bdot"></span>To'lamagan</span></td><td style="white-space:nowrap"><button class="act wa" onclick="openWaMsg(1779715905087)" title="WhatsApp">📱</button><button class="btn-tgsend" onclick="openTgSend(1779715905087)" title="Telegram xabar">✈️</button><button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit(1779715905087)" title="Tahrirlash">✏️</button><button class="act nt" onclick="openNote(1779715905087)" title="Izoh">📝</button><button class="hbtn" onclick="openPH(1779715905087)" title="To&#39;lov tarixi">🗓</button><button class="act ex" onclick="openGrad(1779715905087)" title="Diplom">🎓</button><button class="act" onclick="delStudent(1779715905087)" title="O&#39;chirish">🗑</button></td></tr><tr><td><span class="nb">5</span></td><td class="nc">Kamolov Muhriddin<br><span style="font-size:0.68rem;color:var(--tx3);font-weight:300">+998 90 907 41 45 · SS-11</span></td><td><input class="ti" type="number" value="1000000" placeholder="so&#39;m" onchange="updAmt(1780139047644,this.value)" oninput="updAmt(1780139047644,this.value)"></td><td><div class="pw"><div class="pb"><div class="pf" style="width:0%;background:var(--rd)"></div></div><span class="pt">0/3</span></div></td><td><span style="color:var(--gr);font-weight:500;font-size:0.78rem">0</span><br><span style="font-size:0.65rem;color:var(--tx3)">/3,000,000 so'm</span></td><td><span class="dv has">-3,000,000 so'm</span></td><td><button class="act" onclick="openE4(1780139047644)" style="font-size:9px">+ Imtihon</button></td><td><select class="ts" onchange="updGrade(1780139047644,this.value)"><option value="" selected="">—</option><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></td><td><span class="nadd" onclick="openNote(1780139047644)">+ izoh</span></td><td><label class="tgl"><input type="checkbox" onchange="togPaid(1780139047644)"><span class="tsl"></span></label>&nbsp;<span class="badge bup"><span class="bdot"></span>To'lamagan</span></td><td style="white-space:nowrap"><button class="act wa" onclick="openWaMsg(1780139047644)" title="WhatsApp">📱</button><button class="btn-tgsend" onclick="openTgSend(1780139047644)" title="Telegram xabar">✈️</button><button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit(1780139047644)" title="Tahrirlash">✏️</button><button class="act nt" onclick="openNote(1780139047644)" title="Izoh">📝</button><button class="hbtn" onclick="openPH(1780139047644)" title="To&#39;lov tarixi">🗓</button><button class="act ex" onclick="openGrad(1780139047644)" title="Diplom">🎓</button><button class="act" onclick="delStudent(1780139047644)" title="O&#39;chirish">🗑</button></td></tr><tr><td><span class="nb">6</span></td><td class="nc">Mirafzalova Shahnoza Qahramonovna<br><span style="font-size:0.68rem;color:var(--tx3);font-weight:300">+998935830540 · SS-11</span></td><td><input class="ti" type="number" value="" placeholder="so&#39;m" onchange="updAmt(1780467978256,this.value)" oninput="updAmt(1780467978256,this.value)"></td><td><div class="pw"><div class="pb"><div class="pf" style="width:0%;background:var(--rd)"></div></div><span class="pt">0/3</span></div></td><td><span style="color:var(--gr);font-weight:500;font-size:0.78rem">0</span><br><span style="font-size:0.65rem;color:var(--tx3)">/0 so'm</span></td><td><span class="dv no">✓ Qarzsiz</span></td><td><button class="act" onclick="openE4(1780467978256)" style="font-size:9px">+ Imtihon</button></td><td><select class="ts" onchange="updGrade(1780467978256,this.value)"><option value="" selected="">—</option><option value="A+">A+</option><option value="A">A</option><option value="B+">B+</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></td><td><span class="nadd" onclick="openNote(1780467978256)">+ izoh</span></td><td><label class="tgl"><input type="checkbox" onchange="togPaid(1780467978256)"><span class="tsl"></span></label>&nbsp;<span class="badge bup"><span class="bdot"></span>To'lamagan</span></td><td style="white-space:nowrap"><button class="act wa" onclick="openWaMsg(1780467978256)" title="WhatsApp">📱</button><button class="btn-tgsend" onclick="openTgSend(1780467978256)" title="Telegram xabar">✈️</button><button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit(1780467978256)" title="Tahrirlash">✏️</button><button class="act nt" onclick="openNote(1780467978256)" title="Izoh">📝</button><button class="hbtn" onclick="openPH(1780467978256)" title="To&#39;lov tarixi">🗓</button><button class="act ex" onclick="openGrad(1780467978256)" title="Diplom">🎓</button><button class="act" onclick="delStudent(1780467978256)" title="O&#39;chirish">🗑</button></td></tr></tbody>
+      <tbody id="tBody"></tbody>
     </table>
     <div class="empty" id="tEmpty" style="display:none"><div style="font-size:2rem">📋</div><p>O'quvchilar yo'q.</p></div>
   </div>
@@ -402,7 +363,6 @@ tr:hover td{background:rgba(255,255,255,0.012);}
 </div>
 <div class="tc" id="tab-attendance">
   <div style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-    <select id="attGroupFilter" onchange="renderAttendance()" style="background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:&#39;DM Sans&#39;,sans-serif;font-size:0.72rem;padding:0.38rem 0.7rem;cursor:pointer;outline:none;"><option value="">👥 Barcha guruhlar</option><option value="SS-1">SS-1</option><option value="SS-10">SS-10</option><option value="SS-11">SS-11</option><option value="SS-2">SS-2</option><option value="SS-3">SS-3</option><option value="SS-4">SS-4</option><option value="SS-5">SS-5</option><option value="SS-6">SS-6</option><option value="SS-7">SS-7</option><option value="SS-8">SS-8</option><option value="SS-9">SS-9</option></select>
     <div class="aleg">
       <span><span class="ldot" style="background:var(--gr)"></span>Keldi</span>
       <span><span class="ldot" style="background:var(--rd)"></span>Kelmadi</span>
@@ -410,7 +370,7 @@ tr:hover td{background:rgba(255,255,255,0.012);}
     </div>
     <button class="xb g" onclick="expAttExcel()">📊 Davomat Excel</button>
   </div>
-  <div class="agrid" id="attGrid"><div class="acard"><div class="ahdr"><span class="aname">Javlon Islomov <span style="font-size:0.65rem;color:var(--tx3)">(SS-11)</span></span><span class="astat"><span class="pc">✓ 5</span> &nbsp; <span class="ac">✗ 0</span></span></div><div class="drow" id="dr-1779712901374"><button class="db present">1</button><button class="db">2</button><button class="db present">3</button><button class="db">4</button><button class="db present">5</button><button class="db">6</button><button class="db">7</button><button class="db present">8</button><button class="db">9</button><button class="db present">10</button><button class="db">11</button><button class="db">12</button><button class="db fut">13</button><button class="db fut">14</button><button class="db fut">15</button><button class="db fut">16</button><button class="db fut">17</button><button class="db fut">18</button><button class="db fut">19</button><button class="db fut">20</button><button class="db fut">21</button><button class="db fut">22</button><button class="db fut">23</button><button class="db fut">24</button><button class="db fut">25</button><button class="db fut">26</button><button class="db fut">27</button><button class="db fut">28</button><button class="db fut">29</button><button class="db fut">30</button></div></div><div class="acard"><div class="ahdr"><span class="aname">Abdujabborova Charos Jamoldin qizi <span style="font-size:0.65rem;color:var(--tx3)">(SS-11)</span></span><span class="astat"><span class="pc">✓ 3</span> &nbsp; <span class="ac">✗ 2</span></span></div><div class="drow" id="dr-1779715028118"><button class="db absent">1</button><button class="db">2</button><button class="db present">3</button><button class="db">4</button><button class="db present">5</button><button class="db">6</button><button class="db">7</button><button class="db present">8</button><button class="db">9</button><button class="db absent">10</button><button class="db">11</button><button class="db">12</button><button class="db fut">13</button><button class="db fut">14</button><button class="db fut">15</button><button class="db fut">16</button><button class="db fut">17</button><button class="db fut">18</button><button class="db fut">19</button><button class="db fut">20</button><button class="db fut">21</button><button class="db fut">22</button><button class="db fut">23</button><button class="db fut">24</button><button class="db fut">25</button><button class="db fut">26</button><button class="db fut">27</button><button class="db fut">28</button><button class="db fut">29</button><button class="db fut">30</button></div></div><div class="acard"><div class="ahdr"><span class="aname">Nazirov Akmal <span style="font-size:0.65rem;color:var(--tx3)">(SS-11)</span></span><span class="astat"><span class="pc">✓ 5</span> &nbsp; <span class="ac">✗ 0</span></span></div><div class="drow" id="dr-1779715372027"><button class="db present">1</button><button class="db">2</button><button class="db present">3</button><button class="db">4</button><button class="db present">5</button><button class="db">6</button><button class="db">7</button><button class="db present">8</button><button class="db">9</button><button class="db present">10</button><button class="db">11</button><button class="db">12</button><button class="db fut">13</button><button class="db fut">14</button><button class="db fut">15</button><button class="db fut">16</button><button class="db fut">17</button><button class="db fut">18</button><button class="db fut">19</button><button class="db fut">20</button><button class="db fut">21</button><button class="db fut">22</button><button class="db fut">23</button><button class="db fut">24</button><button class="db fut">25</button><button class="db fut">26</button><button class="db fut">27</button><button class="db fut">28</button><button class="db fut">29</button><button class="db fut">30</button></div></div><div class="acard"><div class="ahdr"><span class="aname">Abduqahhorov Abdurahim Abdurauf o'g'li <span style="font-size:0.65rem;color:var(--tx3)">(SS-11)</span></span><span class="astat"><span class="pc">✓ 4</span> &nbsp; <span class="ac">✗ 1</span></span></div><div class="drow" id="dr-1779715905087"><button class="db present">1</button><button class="db">2</button><button class="db present">3</button><button class="db">4</button><button class="db absent">5</button><button class="db">6</button><button class="db">7</button><button class="db present">8</button><button class="db">9</button><button class="db present">10</button><button class="db">11</button><button class="db">12</button><button class="db fut">13</button><button class="db fut">14</button><button class="db fut">15</button><button class="db fut">16</button><button class="db fut">17</button><button class="db fut">18</button><button class="db fut">19</button><button class="db fut">20</button><button class="db fut">21</button><button class="db fut">22</button><button class="db fut">23</button><button class="db fut">24</button><button class="db fut">25</button><button class="db fut">26</button><button class="db fut">27</button><button class="db fut">28</button><button class="db fut">29</button><button class="db fut">30</button></div></div><div class="acard"><div class="ahdr"><span class="aname">Kamolov Muhriddin <span style="font-size:0.65rem;color:var(--tx3)">(SS-11)</span></span><span class="astat"><span class="pc">✓ 5</span> &nbsp; <span class="ac">✗ 0</span></span></div><div class="drow" id="dr-1780139047644"><button class="db present">1</button><button class="db">2</button><button class="db present">3</button><button class="db">4</button><button class="db present">5</button><button class="db">6</button><button class="db">7</button><button class="db present">8</button><button class="db">9</button><button class="db present">10</button><button class="db">11</button><button class="db">12</button><button class="db fut">13</button><button class="db fut">14</button><button class="db fut">15</button><button class="db fut">16</button><button class="db fut">17</button><button class="db fut">18</button><button class="db fut">19</button><button class="db fut">20</button><button class="db fut">21</button><button class="db fut">22</button><button class="db fut">23</button><button class="db fut">24</button><button class="db fut">25</button><button class="db fut">26</button><button class="db fut">27</button><button class="db fut">28</button><button class="db fut">29</button><button class="db fut">30</button></div></div><div class="acard"><div class="ahdr"><span class="aname">Mirafzalova Shahnoza Qahramonovna <span style="font-size:0.65rem;color:var(--tx3)">(SS-11)</span></span><span class="astat"><span class="pc">✓ 5</span> &nbsp; <span class="ac">✗ 0</span></span></div><div class="drow" id="dr-1780467978256"><button class="db present">1</button><button class="db">2</button><button class="db present">3</button><button class="db">4</button><button class="db present">5</button><button class="db">6</button><button class="db">7</button><button class="db present">8</button><button class="db">9</button><button class="db present">10</button><button class="db">11</button><button class="db">12</button><button class="db fut">13</button><button class="db fut">14</button><button class="db fut">15</button><button class="db fut">16</button><button class="db fut">17</button><button class="db fut">18</button><button class="db fut">19</button><button class="db fut">20</button><button class="db fut">21</button><button class="db fut">22</button><button class="db fut">23</button><button class="db fut">24</button><button class="db fut">25</button><button class="db fut">26</button><button class="db fut">27</button><button class="db fut">28</button><button class="db fut">29</button><button class="db fut">30</button></div></div></div>
+  <div class="agrid" id="attGrid"></div>
   <div class="empty" id="attEmpty" style="display:none"><div style="font-size:2rem">📅</div><p>O'quvchilar yo'q.</p></div>
 </div>
 <div class="tc" id="tab-expense">
@@ -420,73 +380,43 @@ tr:hover td{background:rgba(255,255,255,0.012);}
       <div class="ef">
         <input type="text" id="expName" placeholder="Xarajat nomi">
         <div class="r2">
-          <input type="number" id="expAmt" placeholder="Summa (so&#39;m)">
+          <input type="number" id="expAmt" placeholder="Summa (so'm)">
           <select id="expCat"><option>🏠 Ijara</option><option>💡 Kommunal</option><option>🌐 Internet</option><option>🖥️ Jihozlar</option><option>📚 Darslik</option><option>🚗 Transport</option><option>👤 Ish haqi</option><option>📢 Reklama</option><option>📦 Boshqa</option></select>
         </div>
         <input type="text" id="expNote" placeholder="Izoh (ixtiyoriy)">
         <button class="eadd" onclick="addExp()">+ Xarajat Qo'shish</button>
       </div>
       <div class="sumbox">
-        <div class="sumit"><div class="sumnum cgr" id="expInc">2,000,000</div><div class="suml">Daromad</div></div>
+        <div class="sumit"><div class="sumnum cgr" id="expInc">0</div><div class="suml">Daromad</div></div>
         <div class="sumit"><div class="sumnum cr" id="expTot">0</div><div class="suml">Xarajat</div></div>
-        <div class="sumit"><div class="sumnum co" id="expBal" style="color: var(--gr);">2,000,000</div><div class="suml">Sof Foyda</div></div>
+        <div class="sumit"><div class="sumnum co" id="expBal">0</div><div class="suml">Sof Foyda</div></div>
       </div>
     </div>
-    <div class="card"><h4>📋 Bu Oylik Xarajatlar</h4><div class="elist" id="expList"><div class="empty" style="padding:1.5rem"><div style="font-size:1.6rem">💸</div><p>Bu oyda xarajat yo'q.</p></div></div></div>
+    <div class="card"><h4>📋 Bu Oylik Xarajatlar</h4><div class="elist" id="expList"></div></div>
   </div>
 </div>
 <div class="tc" id="tab-graduates">
   <div class="gstats">
-    <div class="gstat"><div class="gsn ct" id="gTotal">24</div><div class="gsl">Jami Bitiruvchi</div></div>
-    <div class="gstat"><div class="gsn cr" id="gQizil">20</div><div class="gsl">🔴 Qizil Diplom</div></div>
-    <div class="gstat"><div class="gsn" style="color:var(--bl)" id="gKok">4</div><div class="gsl">🔵 Ko'k Diplom</div></div>
+    <div class="gstat"><div class="gsn ct" id="gTotal">0</div><div class="gsl">Jami Bitiruvchi</div></div>
+    <div class="gstat"><div class="gsn cr" id="gQizil">0</div><div class="gsl">🔴 Qizil Diplom</div></div>
+    <div class="gstat"><div class="gsn" style="color:var(--bl)" id="gKok">0</div><div class="gsl">🔵 Ko'k Diplom</div></div>
     <div class="gstat"><div class="gsn cg" id="gSert">0</div><div class="gsl">🏅 Sertifikat</div></div>
   </div>
   <div class="tw">
     <table>
       <thead><tr><th>#</th><th>Ismi</th><th>Telefon</th><th>Guruh</th><th>Diplom</th><th>Diplom №</th><th>Seriya</th><th>Ishxona</th><th>Amal</th></tr></thead>
-      <tbody id="gradBody"><tr><td><span class="nb">1</span></td><td class="nc">Akbarova E'zoza Azimjon qizi</td><td>+998953300580</td><td>SS-1</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">3</td><td>SS-1</td><td>Turon OS</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520353251)">✏️</button><button class="act wa" onclick="openWaMsg(1779520353251)">📱</button><button class="act" onclick="remGrad(1779520353251)">🗑</button></td></tr><tr><td><span class="nb">2</span></td><td class="nc">Fozilova Shahnoza Isroil qizi</td><td>—</td><td>SS-1</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">4</td><td>SS</td><td>ISO standartlashtirish korxonasi</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520403342)">✏️</button><button class="act wa" onclick="openWaMsg(1779520403342)">📱</button><button class="act" onclick="remGrad(1779520403342)">🗑</button></td></tr><tr><td><span class="nb">3</span></td><td class="nc">Najmitdinova Malika Ulug'bek qizi</td><td>—</td><td>SS-1</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">1</td><td>SS</td><td>Autsornig korxinasi</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520441653)">✏️</button><button class="act wa" onclick="openWaMsg(1779520441653)">📱</button><button class="act" onclick="remGrad(1779520441653)">🗑</button></td></tr><tr><td><span class="nb">4</span></td><td class="nc">Otamurodaova Shohsanam HAmidjon qizi</td><td>—</td><td>SS-1</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">2</td><td>SS</td><td>Tuhum oldi-sotdi korxonasi</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520480637)">✏️</button><button class="act wa" onclick="openWaMsg(1779520480637)">📱</button><button class="act" onclick="remGrad(1779520480637)">🗑</button></td></tr><tr><td><span class="nb">5</span></td><td class="nc">Baxtiyorov Shohruh Ulug'bek o'g'li</td><td>—</td><td>SS-1</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">5</td><td>SS</td><td>Autsorsing korxona</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520623707)">✏️</button><button class="act wa" onclick="openWaMsg(1779520623707)">📱</button><button class="act" onclick="remGrad(1779520623707)">🗑</button></td></tr><tr><td><span class="nb">6</span></td><td class="nc">Mahmudova Madina Tursunboy qizi</td><td>—</td><td>SS-2</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">SS7</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520869248)">✏️</button><button class="act wa" onclick="openWaMsg(1779520869248)">📱</button><button class="act" onclick="remGrad(1779520869248)">🗑</button></td></tr><tr><td><span class="nb">7</span></td><td class="nc">Zigangirov Ildar Danil o'g'li</td><td>—</td><td>SS-2</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">SS6</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520894344)">✏️</button><button class="act wa" onclick="openWaMsg(1779520894344)">📱</button><button class="act" onclick="remGrad(1779520894344)">🗑</button></td></tr><tr><td><span class="nb">8</span></td><td class="nc">Olimov Ixlos Ulug'brk o'g'li</td><td>—</td><td>SS-3</td><td><span class="dbadge dk">🔵 Ko'k</span></td><td style="font-weight:500;color:var(--tx)">10</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779520933744)">✏️</button><button class="act wa" onclick="openWaMsg(1779520933744)">📱</button><button class="act" onclick="remGrad(1779520933744)">🗑</button></td></tr><tr><td><span class="nb">9</span></td><td class="nc">Anvarov Nazrulla Latif o'g'li</td><td>—</td><td>SS-4</td><td><span class="dbadge dk">🔵 Ko'k</span></td><td style="font-weight:500;color:var(--tx)">SS9</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779521931749)">✏️</button><button class="act wa" onclick="openWaMsg(1779521931749)">📱</button><button class="act" onclick="remGrad(1779521931749)">🗑</button></td></tr><tr><td><span class="nb">10</span></td><td class="nc">Qosimov Zuhriddin</td><td>—</td><td>SS-4</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">8</td><td>SS</td><td>Strong home city</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779522052127)">✏️</button><button class="act wa" onclick="openWaMsg(1779522052127)">📱</button><button class="act" onclick="remGrad(1779522052127)">🗑</button></td></tr><tr><td><span class="nb">11</span></td><td class="nc">Ashurov Asadbek Olimovich</td><td>—</td><td>SS-6</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">15</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779522324719)">✏️</button><button class="act wa" onclick="openWaMsg(1779522324719)">📱</button><button class="act" onclick="remGrad(1779522324719)">🗑</button></td></tr><tr><td><span class="nb">12</span></td><td class="nc">Saidmurodov Orzumurod Sadulla o'g'li</td><td>—</td><td>SS-6</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">16</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779522502878)">✏️</button><button class="act wa" onclick="openWaMsg(1779522502878)">📱</button><button class="act" onclick="remGrad(1779522502878)">🗑</button></td></tr><tr><td><span class="nb">13</span></td><td class="nc">Ismatillaxo'jayeva Shahnoza</td><td>—</td><td>SS-9</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">12</td><td>SS</td><td>Autsorsing korxona</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779524393548)">✏️</button><button class="act wa" onclick="openWaMsg(1779524393548)">📱</button><button class="act" onclick="remGrad(1779524393548)">🗑</button></td></tr><tr><td><span class="nb">14</span></td><td class="nc">Sa'dullayev Bekzod</td><td>—</td><td>SS-9</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">17</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779524606383)">✏️</button><button class="act wa" onclick="openWaMsg(1779524606383)">📱</button><button class="act" onclick="remGrad(1779524606383)">🗑</button></td></tr><tr><td><span class="nb">15</span></td><td class="nc">Akmalxonov Samadxon</td><td>—</td><td>SS-9</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">14</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779524931090)">✏️</button><button class="act wa" onclick="openWaMsg(1779524931090)">📱</button><button class="act" onclick="remGrad(1779524931090)">🗑</button></td></tr><tr><td><span class="nb">16</span></td><td class="nc">Hasanov Suhrob</td><td>—</td><td>SS-9</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">13</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525138828)">✏️</button><button class="act wa" onclick="openWaMsg(1779525138828)">📱</button><button class="act" onclick="remGrad(1779525138828)">🗑</button></td></tr><tr><td><span class="nb">17</span></td><td class="nc">Shokiraliyeva Moludaxon</td><td>—</td><td>SS-9</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">18</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525224335)">✏️</button><button class="act wa" onclick="openWaMsg(1779525224335)">📱</button><button class="act" onclick="remGrad(1779525224335)">🗑</button></td></tr><tr><td><span class="nb">18</span></td><td class="nc">Saidganiyev Ma'murjon Qahramon o'g'li</td><td>—</td><td>SS-10</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">23</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525288218)">✏️</button><button class="act wa" onclick="openWaMsg(1779525288218)">📱</button><button class="act" onclick="remGrad(1779525288218)">🗑</button></td></tr><tr><td><span class="nb">19</span></td><td class="nc">Tilakmurodov Sherzod Nazrullo o'g'li</td><td>—</td><td>SS-10</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">22</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525383089)">✏️</button><button class="act wa" onclick="openWaMsg(1779525383089)">📱</button><button class="act" onclick="remGrad(1779525383089)">🗑</button></td></tr><tr><td><span class="nb">20</span></td><td class="nc">Sabirova Sevinch  Davronbekovna</td><td>—</td><td>SS-10</td><td><span class="dbadge dk">🔵 Ko'k</span></td><td style="font-weight:500;color:var(--tx)">25</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525443705)">✏️</button><button class="act wa" onclick="openWaMsg(1779525443705)">📱</button><button class="act" onclick="remGrad(1779525443705)">🗑</button></td></tr><tr><td><span class="nb">21</span></td><td class="nc">Raximova Feruza Mahamadjonovna</td><td>—</td><td>SS-10</td><td><span class="dbadge dk">🔵 Ko'k</span></td><td style="font-weight:500;color:var(--tx)">24</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525582879)">✏️</button><button class="act wa" onclick="openWaMsg(1779525582879)">📱</button><button class="act" onclick="remGrad(1779525582879)">🗑</button></td></tr><tr><td><span class="nb">22</span></td><td class="nc">Omonov Samandan Axmar o'g'li</td><td>—</td><td>SS-10</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">19</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525648126)">✏️</button><button class="act wa" onclick="openWaMsg(1779525648126)">📱</button><button class="act" onclick="remGrad(1779525648126)">🗑</button></td></tr><tr><td><span class="nb">23</span></td><td class="nc">Qo'shboyeva Fozila Doniyor qizi</td><td>—</td><td>SS-10</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">21</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525762545)">✏️</button><button class="act wa" onclick="openWaMsg(1779525762545)">📱</button><button class="act" onclick="remGrad(1779525762545)">🗑</button></td></tr><tr><td><span class="nb">24</span></td><td class="nc">Baxtiyorova Zilola Eldor qizi</td><td>—</td><td>SS-10</td><td><span class="dbadge dq">🔴 Qizil</span></td><td style="font-weight:500;color:var(--tx)">20</td><td>SS</td><td>—</td><td style="white-space:nowrap"><button class="act ex" onclick="openGrad(1779525835784)">✏️</button><button class="act wa" onclick="openWaMsg(1779525835784)">📱</button><button class="act" onclick="remGrad(1779525835784)">🗑</button></td></tr></tbody>
+      <tbody id="gradBody"></tbody>
     </table>
     <div class="empty" id="gradEmpty" style="display:none"><div style="font-size:2rem">🎓</div><p>Hali bitiruvchi yo'q.</p></div>
   </div>
 </div>
 <div class="tc" id="tab-reports">
   <div class="cgrid">
-    <div class="ccard"><h4>📈 Oylik Daromad</h4><div class="cwrap"><canvas id="cInc" width="705" height="237" style="display: block; box-sizing: border-box; height: 190px; width: 564px;"></canvas></div></div>
-    <div class="ccard"><h4>💳 To'lov holati</h4><div class="cwrap"><canvas id="cPay" width="705" height="237" style="display: block; box-sizing: border-box; height: 190px; width: 564px;"></canvas></div></div>
-    <div class="ccard"><h4>💸 Daromad vs Xarajat</h4><div class="cwrap"><canvas id="cBal" width="705" height="237" style="display: block; box-sizing: border-box; height: 190px; width: 564px;"></canvas></div></div>
-    <div class="ccard"><h4>🎓 Diplom turlari</h4><div class="cwrap"><canvas id="cDip" width="705" height="237" style="display: block; box-sizing: border-box; height: 190px; width: 564px;"></canvas></div></div>
+    <div class="ccard"><h4>📈 Oylik Daromad</h4><div class="cwrap"><canvas id="cInc"></canvas></div></div>
+    <div class="ccard"><h4>💳 To'lov holati</h4><div class="cwrap"><canvas id="cPay"></canvas></div></div>
+    <div class="ccard"><h4>💸 Daromad vs Xarajat</h4><div class="cwrap"><canvas id="cBal"></canvas></div></div>
+    <div class="ccard"><h4>🎓 Diplom turlari</h4><div class="cwrap"><canvas id="cDip"></canvas></div></div>
   </div>
-</div>
-
-<div class="tc" id="tab-topics">
-  <div class="top-stats">
-    <div class="top-stat"><div class="top-stat-n cg" id="tTotal">47</div><div class="top-stat-l">Jami Mavzu</div></div>
-    <div class="top-stat"><div class="top-stat-n cgr" id="tWithSlide">0</div><div class="top-stat-l">Slaydli</div></div>
-    <div class="top-stat"><div class="top-stat-n cr" id="tNoSlide">47</div><div class="top-stat-l">Slaydsiz</div></div>
-    <div class="top-stat"><div class="top-stat-n ct" id="tSections">8</div><div class="top-stat-l">Bo'lim</div></div>
-  </div>
-  <div class="top-add-form" id="topAddForm" style="display:none">
-    <h4>➕ Yangi Mavzu Qo'shish</h4>
-    <div class="top-fg"><label>Bo'lim nomi</label><input type="text" id="tSecName" placeholder="Masalan: 1-oy. Buxgalteriyaga kirish"></div>
-    <div class="top-fg"><label>Mavzu nomi *</label><input type="text" id="tName" placeholder="Mavzu nomi..."></div>
-    <div class="top-fr">
-      <div class="top-fg"><label>Tartib raqami</label><input type="number" id="tOrder" placeholder="1"></div>
-      <div class="top-fg"><label>Dars turi</label><select id="tType"><option value="nazariy">Nazariy</option><option value="amaliy">Amaliy (1C)</option><option value="imtihon">Imtihon</option><option value="aralash">Aralash</option></select></div>
-    </div>
-    <div class="top-fg"><label>Izoh</label><input type="text" id="tNotes" placeholder="Qo&#39;shimcha ma&#39;lumot..."></div>
-    <div class="mbtns" style="margin-top:0.5rem">
-      <button class="btnc" onclick="document.getElementById(&#39;topAddForm&#39;).style.display=&#39;none&#39;">Bekor</button>
-      <button class="btns" onclick="addTopic()">Qo'shish ✓</button>
-    </div>
-  </div>
-  <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
-    <button class="abtn" onclick="document.getElementById(&#39;topAddForm&#39;).style.display=document.getElementById(&#39;topAddForm&#39;).style.display===&#39;none&#39;?&#39;block&#39;:&#39;none&#39;">+ Mavzu Qo'shish</button>
-    <button class="xb g" onclick="expTopicsExcel()">📊 Excel</button>
-    <div class="sw" style="flex:1"><span class="si">🔍</span><input type="text" id="topSearch" placeholder="Mavzu qidirish..." oninput="renderTopics()"></div>
-  </div>
-  <div id="topicsContainer"><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">1-oy: Buxgalteriyaga kirish</span><span class="top-sect-count">3 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1001)"><div class="top-num">1</div><div class="top-info"><div class="top-name">Mavzu 1. Buxgalteriya qanday kasb? Korxona ochilish tartibi. Soliq turlari. Korxona turlari.</div><div class="top-meta" style="color:var(--bl)">Nazariy</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1001)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1001)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1002)"><div class="top-num">2</div><div class="top-info"><div class="top-name">Mavzu 2. Mehnat shartnomasi. Shtat jadvali. Hodim ishga qabul qilish</div><div class="top-meta" style="color:var(--bl)">Nazariy</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1002)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1002)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1003)"><div class="top-num">3</div><div class="top-info"><div class="top-name">Mavzu 3. Schotlar rejasi. 21-son BHMS. Ustav e'lon qilish shakllantirish</div><div class="top-meta" style="color:var(--or)">Aralash</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1003)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1003)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">1-oy: Oylik ish haqi</span><span class="top-sect-count">10 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1004)"><div class="top-num">4</div><div class="top-info"><div class="top-name">Mavzu 4. Oylik ish haqi hisoblash. Matematik, arifmetik hisoblash. Buxgalteriya o'tkazmalari bilan hisoblash. Soliq kodeksi.</div><div class="top-meta" style="color:var(--or)">Aralash</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1004)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1004)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1005)"><div class="top-num">5</div><div class="top-info"><div class="top-name">Mavzu 5. Oylik ish haqidan avans berish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1005)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1005)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1006)"><div class="top-num">6</div><div class="top-info"><div class="top-name">Mavzu 6. Kassa. Kassa orqali oylik ish haqi berish.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1006)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1006)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1007)"><div class="top-num">7</div><div class="top-info"><div class="top-name">Mavzu 7. Hodim qarz olishi (ZAYM)</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1007)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1007)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1008)"><div class="top-num">8</div><div class="top-info"><div class="top-name">Mavzu 8. Mukofot puli. Yordam puli. Soliq kodeksi</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1008)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1008)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1009)"><div class="top-num">9</div><div class="top-info"><div class="top-name">Mavzu 9. Kasallik varag'i uchun nafaqa hisoblash</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1009)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1009)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1010)"><div class="top-num">10</div><div class="top-info"><div class="top-name">Mavzu 10. Aliment pulini hisoblash</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1010)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1010)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1011)"><div class="top-num">11</div><div class="top-info"><div class="top-name">Mavzu 11. Komandirovka. Xizmat safari</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1011)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1011)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1012)"><div class="top-num">12</div><div class="top-info"><div class="top-name">Mavzu 12. Mehnat ta'tili. Soliq kodeksi.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1012)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1012)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1013)"><div class="top-num">13</div><div class="top-info"><div class="top-name">Mavzu 13. Hodimni ishdan bo'shatish. Kompensatsiya berish. Mehnat kodeksi</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1013)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1013)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">1-oy: Imtihon</span><span class="top-sect-count">1 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1014)"><div class="top-num">14</div><div class="top-info"><div class="top-name">O'tilgan mavzular bo'yicha imtihon</div><div class="top-meta" style="color:var(--gold)">Imtihon</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1014)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1014)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">2-oy: Oldi-sotdi (Realizatsiya)</span><span class="top-sect-count">10 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1015)"><div class="top-num">15</div><div class="top-info"><div class="top-name">Mavzu 14. Tovar sotib olish. Soliq kodeksi.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1015)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1015)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1016)"><div class="top-num">16</div><div class="top-info"><div class="top-name">Mavzu 15. Tovar sotish. Soliq kodeksi.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1016)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1016)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1017)"><div class="top-num">17</div><div class="top-info"><div class="top-name">Mavzu 16. QQS. Soliq kodeksi.</div><div class="top-meta" style="color:var(--bl)">Nazariy</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1017)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1017)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1018)"><div class="top-num">18</div><div class="top-info"><div class="top-name">Mavzu 17. Tovar xarid qilish QQS bilan.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1018)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1018)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1019)"><div class="top-num">19</div><div class="top-info"><div class="top-name">Mavzu 18. Tovar sotish QQS bilan. Material spisaniya qilish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1019)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1019)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1020)"><div class="top-num">20</div><div class="top-info"><div class="top-name">Mavzu 19. Xizmat sotib olish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1020)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1020)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1021)"><div class="top-num">21</div><div class="top-info"><div class="top-name">Mavzu 20. Xizmat sotish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1021)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1021)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1022)"><div class="top-num">22</div><div class="top-info"><div class="top-name">Mavzu 21. Chakana savdo va ulgurji savdo</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1022)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1022)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1023)"><div class="top-num">23</div><div class="top-info"><div class="top-name">Mavzu 22. Konvertatsiya</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1023)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1023)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1024)"><div class="top-num">24</div><div class="top-info"><div class="top-name">Mavzu 23. Bojxona yuk deklaratsiyasi. BYuD (GTD) Import.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1024)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1024)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">2-oy: Imtihon</span><span class="top-sect-count">1 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1025)"><div class="top-num">25</div><div class="top-info"><div class="top-name">O'tilgan mavzu bo'yicha imtihon</div><div class="top-meta" style="color:var(--gold)">Imtihon</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1025)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1025)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">3-oy: Bank operatsiyalari</span><span class="top-sect-count">12 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1026)"><div class="top-num">26</div><div class="top-info"><div class="top-name">Mavzu 24. Asosiy vositalar. Sotib olish. Qabul qilish va topshirish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1026)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1026)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1027)"><div class="top-num">27</div><div class="top-info"><div class="top-name">Mavzu 25. Asosiy vositalar. Foydalanishga topshirish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1027)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1027)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1028)"><div class="top-num">28</div><div class="top-info"><div class="top-name">Mavzu 26. Asosiy vositalarni eskirishi va hisobdan chiqarish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1028)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1028)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1029)"><div class="top-num">29</div><div class="top-info"><div class="top-name">Mavzu 27. Ishlab chiqarish. Nazariy ma'lumotlar</div><div class="top-meta" style="color:var(--bl)">Nazariy</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1029)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1029)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1030)"><div class="top-num">30</div><div class="top-info"><div class="top-name">Mavzu 28. Ishlab chiqarish. 1C amaliyot</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1030)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1030)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1031)"><div class="top-num">31</div><div class="top-info"><div class="top-name">Mavzu 29. Bankdan kredit olish.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1031)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1031)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1032)"><div class="top-num">32</div><div class="top-info"><div class="top-name">Mavzu 30. Bankdan kredit olish. (2-qism)</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1032)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1032)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1033)"><div class="top-num">33</div><div class="top-info"><div class="top-name">Mavzu 31. Boshqa korxonadan yordam olish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1033)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1033)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1034)"><div class="top-num">34</div><div class="top-info"><div class="top-name">Mavzu 32. Boshqa korxonadan olingan yordamni qaytarish. Pul, Tovar ko'rinishida</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1034)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1034)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1035)"><div class="top-num">35</div><div class="top-info"><div class="top-name">Mavzu 33. Ustav fondini shakllantirish. Naqd pul ko'rinishida. Qayta ro'yxatdan o'tkazish tartibi.</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1035)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1035)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1036)"><div class="top-num">36</div><div class="top-info"><div class="top-name">Mavzu 34. AKT sverka qilish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1036)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1036)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1037)"><div class="top-num">37</div><div class="top-info"><div class="top-name">Mavzu 35. Bank ma'lumotlari (vypiska)ni 1C ga kiritish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1037)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1037)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">3-oy: Imtihon</span><span class="top-sect-count">1 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1038)"><div class="top-num">38</div><div class="top-info"><div class="top-name">O'tilgan mavzu bo'yicha imtihon</div><div class="top-meta" style="color:var(--gold)">Imtihon</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1038)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1038)" title="Ochirish">del</button></div></div></div></div><div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">4-oy: Amaliy mashg'ulotlar</span><span class="top-sect-count">9 ta mavzu</span></div><div class="top-list"><div class="top-item" onclick="openTopic(1039)"><div class="top-num">39</div><div class="top-info"><div class="top-name">Mavzu 36. my.soliq.uz, my3.soliq.uz saytlarida ishlash</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1039)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1039)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1040)"><div class="top-num">40</div><div class="top-info"><div class="top-name">Mavzu 37. my.soliq.uz, my3.soliq.uz saytlarida ishlash (2-qism)</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1040)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1040)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1041)"><div class="top-num">41</div><div class="top-info"><div class="top-name">Mavzu 38. didox.uz saytida ishlash</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1041)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1041)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1042)"><div class="top-num">42</div><div class="top-info"><div class="top-name">Mavzu 39. didox.uz saytida ishlash (2-qism). Ishonchnoma, TTN, Schot-faktura yuborish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1042)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1042)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1043)"><div class="top-num">43</div><div class="top-info"><div class="top-name">Mavzu 40. Bank klientda ishlash</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1043)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1043)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1044)"><div class="top-num">44</div><div class="top-info"><div class="top-name">Mavzu 41. my.Mehnat.uz saytida ishlash</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1044)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1044)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1045)"><div class="top-num">45</div><div class="top-info"><div class="top-name">Mavzu 42. my.Mehnat.uz saytida ishlash (2-qism)</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1045)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1045)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1046)"><div class="top-num">46</div><div class="top-info"><div class="top-name">Mavzu 43. INPS hisobot yuborish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1046)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1046)" title="Ochirish">del</button></div></div><div class="top-item" onclick="openTopic(1047)"><div class="top-num">47</div><div class="top-info"><div class="top-name">Mavzu 44. 6 oylik korxona vypiskasini kiritish. 1C balans qilish</div><div class="top-meta" style="color:var(--gr)">Amaliy 1C</div></div><span class="top-slide no">Slaydsiz</span><div class="top-actions"><button class="act ex" onclick="event.stopPropagation();openTopicEdit(1047)" title="Tahrirlash">edit</button><button class="act" onclick="event.stopPropagation();delTopic(1047)" title="Ochirish">del</button></div></div></div></div></div>
-  <div class="empty" id="topEmpty" style="display:none"><div style="font-size:2rem">📚</div><p>Mavzular yo'q. "Mavzu Qo'shish" tugmasini bosing!</p></div>
 </div>
 <div class="tc" id="tab-messages">
   <div id="msgTemplates">
@@ -522,22 +452,22 @@ tr:hover td{background:rgba(255,255,255,0.012);}
   <div class="fr"><div class="fg"><label>Ismi *</label><input type="text" id="iName" placeholder="Alisher Karimov"></div><div class="fg"><label>Telefon</label><input type="text" id="iPhone" placeholder="+998 90 123 45 67"></div></div>
   <div class="fr"><div class="fg"><label>Guruh</label><input type="text" id="iGroup" placeholder="1-guruh"></div><div class="fg"><label>Oylik to'lov</label><input type="number" id="iAmt" placeholder="500000"></div></div>
   <div class="fr">
-    <div class="fg"><label>O'qish muddati</label><select id="iMonths"><option value="1">1 oy</option><option value="2">2 oy</option><option value="3">3 oy</option><option value="4">4 oy</option><option value="5">5 oy</option><option value="6" selected="">6 oy</option><option value="7">7 oy</option><option value="8">8 oy</option><option value="9">9 oy</option><option value="10">10 oy</option><option value="11">11 oy</option><option value="12">12 oy</option></select></div>
+    <div class="fg"><label>O'qish muddati</label><select id="iMonths"><option value="1">1 oy</option><option value="2">2 oy</option><option value="3">3 oy</option><option value="4">4 oy</option><option value="5">5 oy</option><option value="6" selected>6 oy</option><option value="7">7 oy</option><option value="8">8 oy</option><option value="9">9 oy</option><option value="10">10 oy</option><option value="11">11 oy</option><option value="12">12 oy</option></select></div>
     <div class="fg"><label>Baho</label><select id="iGrade"><option value="">— Baho —</option><option>A+</option><option>A</option><option>B+</option><option>B</option><option>C</option><option>D</option></select></div>
   </div>
   <div class="fr">
     <div class="fg"><label>Telegram ID <span style="color:var(--tx3);font-size:0.65rem">(raqam)</span></label><input type="text" id="iTgId" placeholder="123456789"></div>
-    <div class="fg"><label>Izoh</label><input type="text" id="iNote" placeholder="Qo&#39;shimcha ma&#39;lumot..."></div>
+    <div class="fg"><label>Izoh</label><input type="text" id="iNote" placeholder="Qo'shimcha ma'lumot..."></div>
   </div>
   <div class="fr">
     <div class="fg"><label>Boshlanish sanasi</label><input type="date" id="iStartDate"></div>
     <div class="fg"><label>Birinchi to'lov sanasi</label><input type="date" id="iFirstPay"></div>
   </div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;addMod&#39;)">Bekor</button><button class="btns" onclick="addStudent()">Qo'shish ✓</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('addMod')">Bekor</button><button class="btns" onclick="addStudent()">Qo'shish ✓</button></div>
 </div></div>
 <!-- TAHRIRLASH MODALI -->
 <div class="mov" id="editMod"><div class="modal">
-  <h3 id="editTitle">✏️ Javlon Islomov</h3>
+  <h3 id="editTitle">✏️ Tahrirlash</h3>
   <div class="fr"><div class="fg"><label>Ismi *</label><input type="text" id="eName"></div><div class="fg"><label>Telefon</label><input type="text" id="ePhone"></div></div>
   <div class="fr"><div class="fg"><label>Guruh</label><input type="text" id="eGroup"></div><div class="fg"><label>Oylik to'lov</label><input type="number" id="eAmt"></div></div>
   <div class="fr">
@@ -550,7 +480,7 @@ tr:hover td{background:rgba(255,255,255,0.012);}
   </div>
   <div class="fg"><label>Telegram ID <span style="color:var(--tx3);font-size:0.65rem">(raqam)</span></label><input type="text" id="eTgId" placeholder="123456789"></div>
   <div class="fg"><label>Izoh</label><textarea id="eNote"></textarea></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;editMod&#39;)">Bekor</button><button class="btns" onclick="saveEdit()">Saqlash ✓</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('editMod')">Bekor</button><button class="btns" onclick="saveEdit()">Saqlash ✓</button></div>
 </div></div>
 <!-- 4 BOSQICHLI IMTIHON -->
 <div class="mov" id="exam4Mod"><div class="modal" style="width:540px">
@@ -582,54 +512,30 @@ tr:hover td{background:rgba(255,255,255,0.012);}
     <div style="font-size:0.72rem;color:var(--tx3)" id="e4lbl">/ 100 ball</div>
   </div>
   <div class="fg"><label>Izoh</label><input type="text" id="e4note" placeholder="Izoh..."></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;exam4Mod&#39;)">Bekor</button><button class="btns" onclick="saveE4()">Saqlash ✓</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('exam4Mod')">Bekor</button><button class="btns" onclick="saveE4()">Saqlash ✓</button></div>
 </div></div>
 <div class="mov" id="noteMod"><div class="modal">
   <h3 id="noteTitle">📝 Izoh</h3>
   <div class="fg"><label>Izoh</label><textarea id="noteInp" rows="4"></textarea></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;noteMod&#39;)">Yopish</button><button class="btns" onclick="saveNote()">Saqlash ✓</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('noteMod')">Yopish</button><button class="btns" onclick="saveNote()">Saqlash ✓</button></div>
 </div></div>
 <div class="mov" id="examMod"><div class="modal">
   <h3 id="examTitle">📝 Imtihon</h3>
   <div class="fg"><label>Ball (0-50)</label><input type="number" id="examScore" min="0" max="50" placeholder="0 dan 50 gacha" oninput="updScore(this.value)"></div>
   <div class="sdisp" id="scoreDisp" style="display:none"><div class="sbig" id="scoreBig">0</div><div style="font-size:0.75rem;color:var(--tx3);margin-top:4px" id="scoreLbl"></div></div>
   <div class="fg"><label>Izoh</label><input type="text" id="examNote" placeholder="Izoh..."></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;examMod&#39;)">Bekor</button><button class="btns" onclick="saveExam()">Saqlash ✓</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('examMod')">Bekor</button><button class="btns" onclick="saveExam()">Saqlash ✓</button></div>
 </div></div>
 <div class="mov" id="msgMod"><div class="modal">
   <h3>📨 Xabar Yuborish</h3>
   <div class="waprev" id="msgPrev"></div>
   <div style="display:flex;gap:7px;margin-top:6px"><button class="btnc" style="flex:1;padding:0.52rem;border-radius:8px;cursor:pointer" onclick="copyMsg()">📋 Nusxa</button><button class="bwa" style="flex:1;margin-bottom:0" onclick="openWa()">WhatsApp ↗</button></div>
   <button class="btg" style="margin-top:6px" onclick="openTg()">Telegram ↗</button>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;msgMod&#39;)">Yopish</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('msgMod')">Yopish</button></div>
 </div></div>
-
-<!-- TELEGRAM YAKKA XABAR MODAL -->
-<div class="tgm-overlay" id="tgSendMod">
-  <div class="tgm-box">
-    <div class="tgm-head">
-      <div class="tgm-avatar">✈️</div>
-      <div>
-        <h3 id="tgSendName">O'quvchi</h3>
-        <p id="tgSendInfo">Telegram orqali xabar</p>
-      </div>
-      <button class="tgm-close" onclick="closeTgSend()">×</button>
-    </div>
-    <div id="tgNoIdWarn" class="tgm-no-id" style="display:none">
-      ⚠️ Bu o'quvchining Telegram ID raqami yo'q! Avval tahrirlashdan ID kiriting.
-    </div>
-    <div class="tgm-lbl">📋 Tayyor shablonlar</div>
-    <div class="tgm-tmpl" id="tgTmplBtns"></div>
-    <textarea class="tgm-ta" id="tgSendText" placeholder="Xabar matnini yozing yoki shablon tanlang..."></textarea>
-    <div class="tgm-actions">
-      <button class="tgm-cancel" onclick="closeTgSend()">Bekor</button>
-      <button class="tgm-send" id="tgSendBtn" onclick="doSendTg()">✈️ Telegram Yuborish</button>
-    </div>
-  </div>
-</div>
 <div class="mov" id="debtMod"><div class="modal" style="width:520px">
   <h3>💰 Qarzdorlar</h3><div id="debtCont"></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;debtMod&#39;)">Yopish</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('debtMod')">Yopish</button></div>
 </div></div>
 <div class="mov" id="gradMod"><div class="modal">
   <h3 id="gradTitle">🎓 Bitiruvchi</h3>
@@ -640,11 +546,11 @@ tr:hover td{background:rgba(255,255,255,0.012);}
   <div class="fr"><div class="fg"><label>Seriya</label><input type="text" id="gradSerial" placeholder="SS-2025"></div><div class="fg"><label>Sana</label><input type="date" id="gradDate"></div></div>
   <div class="fg"><label>Ishxona</label><input type="text" id="gradWork" placeholder="Alfa Bank..."></div>
   <div class="fg"><label>Izoh</label><input type="text" id="gradNote" placeholder="..."></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;gradMod&#39;)">Bekor</button><button class="btns" onclick="saveGrad()">Saqlash ✓</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('gradMod')">Bekor</button><button class="btns" onclick="saveGrad()">Saqlash ✓</button></div>
 </div></div>
 <div class="mov" id="examRepMod"><div class="modal" style="width:500px">
   <h3>📝 Imtihon — <span id="examRepM"></span></h3><div id="examRepC"></div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;examRepMod&#39;)">Yopish</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('examRepMod')">Yopish</button></div>
 </div></div>
 <div class="mov" id="phMod"><div class="modal" style="width:560px">
   <h3 id="phTitle">💳 To'lov Tarixi</h3>
@@ -663,51 +569,107 @@ tr:hover td{background:rgba(255,255,255,0.012);}
     <div class="phsit"><div class="phsn cr" id="phDebt">0</div><div class="phsl">Qarz</div></div>
     <div class="phsit"><div class="phsn cg" id="phDue">0</div><div class="phsl">Jami kerak</div></div>
   </div>
-  <div class="mbtns"><button class="btnc" onclick="cMod(&#39;phMod&#39;)">Yopish</button></div>
+  <div class="mbtns"><button class="btnc" onclick="cMod('phMod')">Yopish</button></div>
 </div></div>
 
-<!-- MAVZU DETAIL MODALI -->
-<div class="mov" id="topicMod"><div class="modal" style="width:520px">
-  <h3 id="topicModTitle">📚 Mavzu</h3>
-  <div id="topicModContent"></div>
-  <div style="margin-top:0.75rem">
-    <label style="display:block;font-size:0.68rem;color:var(--tx3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px">Slayd URL manzili (Google Drive, OneDrive...)</label>
-    <div style="display:flex;gap:6px">
-      <input type="text" id="topSlideUrl" placeholder="https://..." style="flex:1;background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:DM Sans,sans-serif;font-size:0.8rem;padding:0.45rem 0.75rem;outline:none">
-      <button class="btns" style="white-space:nowrap;padding:0.45rem 0.85rem;border-radius:var(--rs);font-family:DM Sans,sans-serif;font-size:0.8rem" onclick="saveSlideUrl()">Saqlash</button>
+<!-- TELEGRAM XABAR MODAL -->
+<div class="tgm-overlay" id="tgSendMod">
+  <div class="tgm-box">
+    <div class="tgm-head">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#229ED9,#1a7faa);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">✈️</div>
+      <div><h3 id="tgSendName">O'quvchi</h3><p id="tgSendInfo"></p></div>
+      <button class="tgm-close" onclick="closeTgSend()">×</button>
     </div>
-    <div style="font-size:0.68rem;color:var(--tx3);margin-top:4px">💡 Google Slides yoki PowerPoint Online havolasini kiriting</div>
+    <div id="tgNoIdWarn" class="tgm-no-id" style="display:none">⚠️ Bu o'quvchining Telegram ID si yo'q!</div>
+    <div class="tgm-lbl">📋 Tayyor shablonlar</div>
+    <div class="tgm-tmpl" id="tgTmplBtns"></div>
+    <textarea class="tgm-ta" id="tgSendText" placeholder="Xabar matnini yozing yoki shablon tanlang..."></textarea>
+    <div class="tgm-actions">
+      <button class="tgm-cancel" onclick="closeTgSend()">Bekor</button>
+      <button class="tgm-send" id="tgSendBtn" onclick="doSendTg()">✈️ Telegram Yuborish</button>
+    </div>
   </div>
-  <div class="mbtns">
-    <button class="btnc" onclick="cMod(&#39;topicMod&#39;)">Yopish</button>
-    <button class="btns" style="background:var(--bl)" onclick="openTopicEdit(curTopicId)">✏️ Tahrirlash</button>
-    <button class="btns" style="background:var(--rd)" onclick="delTopic(curTopicId)">🗑 O'chirish</button>
-  </div>
-</div></div>
-
-<!-- MAVZU TAHRIRLASH MODALI -->
-<div class="mov" id="topicEditMod"><div class="modal">
-  <h3 id="topicEditTitle">✏️ Mavzuni Tahrirlash</h3>
-  <div class="top-fg"><label>Bo'lim nomi</label><input type="text" id="teSection" placeholder="Bo&#39;lim..."></div>
-  <div class="top-fg"><label>Mavzu nomi *</label><input type="text" id="teName"></div>
-  <div class="top-fr">
-    <div class="top-fg"><label>Tartib raqami</label><input type="number" id="teOrder"></div>
-    <div class="top-fg"><label>Dars turi</label><select id="teType"><option value="nazariy">Nazariy</option><option value="amaliy">Amaliy (1C)</option><option value="imtihon">Imtihon</option><option value="aralash">Aralash</option></select></div>
-  </div>
-  <div class="top-fg"><label>Izoh</label><input type="text" id="teNotes"></div>
-  <div class="mbtns">
-    <button class="btnc" onclick="cMod(&#39;topicEditMod&#39;)">Bekor</button>
-    <button class="btns" onclick="saveTopicEdit()">Saqlash ✓</button>
-  </div>
-</div></div>
+</div>
 
 <script>
+
+// ============================================================
+// TELEGRAM XABAR YUBORISH
+// ============================================================
+var _tgCurStudent = null;
+
+var TG_TEMPLATES = [
+  {label:"💰 To'lov eslatmasi", getText:function(s){
+    var fin=calcFin(s);
+    return 'Assalomu alaykum, '+s.name+'! 👋\n\nSS ACCOUNTING — to\'lov eslatmasi:\n💰 Oylik to\'lov: '+s.defaultAmount.toLocaleString('uz-UZ')+' so\'m'+(fin.debt>0?'\n⚠️ Qarz: '+fin.debt.toLocaleString('uz-UZ')+' so\'m':'')+' \n\nIltimos, o\'z vaqtida to\'lang.\n\nHurmat bilan,\nSS ACCOUNTING';
+  }},
+  {label:"📝 Imtihon eslatmasi", getText:function(s){
+    return 'Assalomu alaykum, '+s.name+'! 📚\n\nYaqin kunlarda imtihon bo\'lib o\'tadi.\nDarslarni takrorlashni unutmang!\n\nSS Accounting o\'quv markazi 🎓';
+  }},
+  {label:"🎉 Tabrik", getText:function(s){
+    return 'Assalomu alaykum, '+s.name+'! 🎉\n\nSS Accounting jamoasi sizni tabriклайdi!\nDarslaringizda muvaffaqiyat tilaymiz! 🌟\n\nHurmat bilan,\nSS ACCOUNTING';
+  }}
+];
+
+function openTgSend(id){
+  var s=students.find(function(s){return s.id===id;});
+  if(!s)return;
+  _tgCurStudent=s;
+  document.getElementById('tgSendName').textContent=s.name;
+  document.getElementById('tgSendInfo').textContent='Guruh: '+(s.group||'—')+' · TG ID: '+(s.telegram_id||'yo\'q');
+  document.getElementById('tgNoIdWarn').style.display=s.telegram_id?'none':'block';
+  document.getElementById('tgSendBtn').disabled=!s.telegram_id||!TG_BOT_TOKEN;
+  var cont=document.getElementById('tgTmplBtns');cont.innerHTML='';
+  TG_TEMPLATES.forEach(function(t){
+    var btn=document.createElement('button');btn.className='tgm-tbtn';btn.textContent=t.label;
+    btn.onclick=function(){
+      document.querySelectorAll('.tgm-tbtn').forEach(function(b){b.classList.remove('sel');});
+      btn.classList.add('sel');
+      document.getElementById('tgSendText').value=t.getText(s);
+    };
+    cont.appendChild(btn);
+  });
+  document.getElementById('tgSendText').value='';
+  document.getElementById('tgSendMod').classList.add('open');
+}
+
+function closeTgSend(){
+  document.getElementById('tgSendMod').classList.remove('open');
+  _tgCurStudent=null;
+}
+
+async function doSendTg(){
+  var text=document.getElementById('tgSendText').value.trim();
+  if(!text){tgToast('❗ Xabar bo\'sh!','err');return;}
+  if(!TG_BOT_TOKEN){tgToast('❗ Bot token kiritilmagan!','err');return;}
+  var s=_tgCurStudent;
+  if(!s||!s.telegram_id){tgToast('❗ Telegram ID yo\'q!','err');return;}
+  var btn=document.getElementById('tgSendBtn');
+  btn.disabled=true;btn.textContent='⏳ Yuborilmoqda...';
+  try{
+    var res=await fetch('https://api.telegram.org/bot'+TG_BOT_TOKEN+'/sendMessage',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:s.telegram_id,text:text})
+    });
+    var data=await res.json();
+    if(data.ok){tgToast('✅ Xabar yuborildi!','ok');closeTgSend();}
+    else{tgToast('❌ Xato: '+(data.description||'Noma\'lum'),'err');}
+  }catch(e){tgToast('❌ Tarmoq xatosi!','err');}
+  finally{btn.disabled=false;btn.innerHTML='✈️ Telegram Yuborish';}
+}
+
+function tgToast(msg,type){
+  var t=document.createElement('div');t.className='tgm-toast '+(type||'ok');t.textContent=msg;
+  document.body.appendChild(t);setTimeout(function(){t.remove();},3200);
+}
+
 // ============================================================
 // CONFIG
 // ============================================================
 var SB_URL = 'https://nxeyesxkpjkbavbmrggx.supabase.co';
 var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54ZXllc3hrcGprYmF2Ym1yZ2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjcxNzMsImV4cCI6MjA5NDg0MzE3M30.hlq-9JYMWIgPLQSyIKATBivJ7zWtV_l1rcrt2Od4LIg';
 var USERS = { 'saidkamol':'ssaccounting2026', 'mudir':'ssadmin2026' };
+var TG_BOT_TOKEN = ''; // Bu yerga bot tokeningizni kiriting
 var MONTHS = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
 
 // ============================================================
@@ -744,7 +706,8 @@ async function loadData(){
     students = (r1.data||[]).map(function(r){
       return{id:r.id,name:r.name,phone:r.phone||'',group:r.student_group||'',
         defaultAmount:r.default_amount||0,totalMonths:r.total_months||6,
-        startKey:r.start_key||'',joinDate:r.join_date||'',grade:r.grade||'',note:r.note||'',telegram_id:r.telegram_id||'',
+        startKey:r.start_key||'',joinDate:r.join_date||'',grade:r.grade||'',note:r.note||'',
+        telegram_id:r.telegram_id||'',
         payments:r.payments||{},attendance:r.attendance||{},exams:r.exams||{},graduate:r.graduate||null};
     });
     var r2 = await _sb.from('expenses').select('*').order('created_at',{ascending:true});
@@ -762,7 +725,8 @@ async function loadData(){
 function stRow(s){
   return{id:s.id,name:s.name,phone:s.phone||'',student_group:s.group||'',
     default_amount:s.defaultAmount||0,total_months:s.totalMonths||6,
-    start_key:s.startKey||'',join_date:s.joinDate||'',grade:s.grade||'',note:s.note||'',telegram_id:s.telegram_id||'',
+    start_key:s.startKey||'',join_date:s.joinDate||'',grade:s.grade||'',note:s.note||'',
+    telegram_id:s.telegram_id||'',
     payments:s.payments||{},attendance:s.attendance||{},exams:s.exams||{},graduate:s.graduate||null};
 }
 
@@ -818,7 +782,6 @@ async function startApp(){
   document.getElementById('app').style.display='block';
   initYears();
   await loadData();
-  await loadTopics();
   renderTable();
   renderAttendance();
   updateStats();
@@ -842,8 +805,6 @@ function swTab(tab,btn){
   if(tab==='reports')renderReports();
   if(tab==='graduates')renderGraduates();
   if(tab==='messages')renderMessages();
-  if(tab==='topics')loadTopics();
-  if(tab==='topics'){loadTopics();}
 }
 function setF(f,btn){filt=f;document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderTable();}
 var MODS=['addMod','noteMod','examMod','msgMod','debtMod','gradMod','examRepMod','phMod'];
@@ -865,7 +826,6 @@ async function addStudent(){
   var my=gMY();var key=pKey(my.m,my.y);var amt=parseInt(document.getElementById('iAmt').value)||0;
   var s={id:Date.now(),name:name,phone:document.getElementById('iPhone').value.trim(),
     group:document.getElementById('iGroup').value.trim(),defaultAmount:amt,
-    telegram_id:document.getElementById('iTgId').value.trim(),
     totalMonths:parseInt(document.getElementById('iMonths').value)||6,
     startKey:key,joinDate:new Date().toLocaleDateString('uz-UZ'),
     grade:document.getElementById('iGrade').value,note:document.getElementById('iNote').value.trim(),
@@ -1033,21 +993,7 @@ function renderAttendance(){
   var grid=document.getElementById('attGrid');var empty=document.getElementById('attEmpty');
   grid.innerHTML='';if(!students.length){empty.style.display='block';return;}empty.style.display='none';
   var today=new Date();var days=dim(my.m,my.y);var isCur=today.getMonth()===my.m&&today.getFullYear()===my.y;
-  var attGroup = (document.getElementById('attGroupFilter')||{}).value||'';
-  // Update att group filter options
-  var attSel = document.getElementById('attGroupFilter');
-  if(attSel){
-    var attGroups = [...new Set(students.map(function(s){return s.group||'';}).filter(Boolean))].sort();
-    var attCurrent = attSel.value;
-    attSel.innerHTML = '<option value="">👥 Barcha guruhlar</option>';
-    attGroups.forEach(function(g){
-      var o=document.createElement('option');o.value=g;o.textContent=g;
-      if(g===attCurrent)o.selected=true;attSel.appendChild(o);
-    });
-    attGroup = attSel.value;
-  }
-  var filteredStudents = attGroup ? students.filter(function(s){return (s.group||'')===attGroup;}) : students;
-  filteredStudents.forEach(function(s){
+  students.forEach(function(s){
     var att=(s.attendance&&s.attendance[key])||{};var p=0,a=0;
     Object.values(att).forEach(function(v){if(v==='present')p++;else if(v==='absent')a++;});
     var card=document.createElement('div');card.className='acard';
@@ -1109,12 +1055,9 @@ function renderPHL(s){
 
 function renderTable(){
   var my=gMY();var key=pKey(my.m,my.y);var search=document.getElementById('searchInp').value.toLowerCase();
-  var groupSel = document.getElementById('groupFilter');
-  var groupVal = groupSel ? groupSel.value : '';
   var filtered=students.filter(function(s){
     var match=s.name.toLowerCase().includes(search)||(s.phone||'').includes(search)||(s.group||'').toLowerCase().includes(search);
     if(!match)return false;
-    if(groupVal && (s.group||'')!==groupVal) return false;
     if(filt==='paid')return s.payments[key]&&s.payments[key].paid;
     if(filt==='unpaid')return!(s.payments[key]&&s.payments[key].paid);
     if(filt==='debt')return calcFin(s).debt>0;
@@ -1146,7 +1089,7 @@ function renderTable(){
       '<td><label class="tgl"><input type="checkbox" '+(paid?'checked':'')+' onchange="togPaid('+s.id+')"><span class="tsl"></span></label>&nbsp;<span class="badge '+(paid?'bpd':'bup')+'"><span class="bdot"></span>'+(paid?"To'lagan":"To'lamagan")+'</span></td>'+
       '<td style="white-space:nowrap">'+
         (s.phone?'<button class="act wa" onclick="openWaMsg('+s.id+')" title="WhatsApp">📱</button>':'')+
-        '<button class="btn-tgsend" onclick="openTgSend('+s.id+')" title="Telegram xabar">✈️</button>'+
+        (s.telegram_id?'<button class="btn-tgsend" onclick="openTgSend('+s.id+')" title="Telegram xabar">✈️</button>':'')+
         '<button class="act" style="color:var(--or);border-color:var(--or)" onclick="openEdit('+s.id+')" title="Tahrirlash">✏️</button>'+
         '<button class="act nt" onclick="openNote('+s.id+')" title="Izoh">📝</button>'+
         '<button class="hbtn" onclick="openPH('+s.id+')" title="To\'lov tarixi">🗓</button>'+
@@ -1156,22 +1099,6 @@ function renderTable(){
     tbody.appendChild(tr);
   });
   updateStats();
-}
-
-function updateGroupFilter(){
-  var sel = document.getElementById('groupFilter');
-  if(!sel) return;
-  var current = sel.value;
-  var groups = [...new Set(students.map(function(s){return s.group||'';}).filter(Boolean))].sort();
-  sel.innerHTML = '<option value="">👥 Barcha guruhlar ('+students.length+')</option>';
-  groups.forEach(function(g){
-    var count = students.filter(function(s){return s.group===g;}).length;
-    var opt = document.createElement('option');
-    opt.value = g;
-    opt.textContent = g + " (" + count + " ta)";
-    if(g === current) opt.selected = true;
-    sel.appendChild(opt);
-  });
 }
 
 function updateStats(){
@@ -1195,7 +1122,6 @@ function updateStats(){
   document.getElementById('sBalance').textContent=bal.toLocaleString('uz-UZ');
   document.getElementById('sBalance').style.color=bal>=0?'var(--or)':'var(--rd)';
   document.getElementById('sGrads').textContent=grads;
-  updateGroupFilter();
 }
 
 function renderReports(){
@@ -1271,6 +1197,7 @@ var curEditId=null;
 function openEdit(id){
   curEditId=id;
   var s=students.find(function(s){return s.id===id;});
+  if(document.getElementById('eTgId'))document.getElementById('eTgId').value=s.telegram_id||'';
   document.getElementById('editTitle').textContent='✏️ '+s.name;
   document.getElementById('eName').value=s.name||'';
   document.getElementById('ePhone').value=s.phone||'';
@@ -1280,7 +1207,6 @@ function openEdit(id){
   document.getElementById('eGrade').value=s.grade||'';
   document.getElementById('eNote').value=s.note||'';
   document.getElementById('eJoinDate').value=s.joinDate||'';
-  document.getElementById('eTgId').value=s.telegram_id||'';
   if(s.startKey){var pts=s.startKey.split('-');var sy=parseInt(pts[0]),sm=parseInt(pts[1]);document.getElementById('eStartDate').value=new Date(sy,sm,1).toISOString().slice(0,10);}
   else document.getElementById('eStartDate').value='';
   document.getElementById('editMod').classList.add('open');
@@ -1297,7 +1223,7 @@ function saveEdit(){
   s.totalMonths=parseInt(document.getElementById('eMonths').value)||s.totalMonths;
   s.grade=document.getElementById('eGrade').value;
   s.note=document.getElementById('eNote').value.trim();
-  s.telegram_id=document.getElementById('eTgId').value.trim();
+  s.telegram_id=(document.getElementById('eTgId')?document.getElementById('eTgId').value.trim():s.telegram_id||'');
   var jd=document.getElementById('eJoinDate').value;
   if(jd)s.joinDate=jd;
   var sd=document.getElementById('eStartDate').value;
@@ -1320,7 +1246,7 @@ async function addStudent(){
   var joinDate=sdVal?new Date(sdVal).toLocaleDateString('uz-UZ'):new Date().toLocaleDateString('uz-UZ');
   var s={id:Date.now(),name:name,phone:document.getElementById('iPhone').value.trim(),
     group:document.getElementById('iGroup').value.trim(),defaultAmount:amt,
-    telegram_id:document.getElementById('iTgId').value.trim(),
+    telegram_id:(document.getElementById('iTgId')?document.getElementById('iTgId').value.trim():''),
     totalMonths:parseInt(document.getElementById('iMonths').value)||6,
     startKey:key,joinDate:joinDate,
     grade:document.getElementById('iGrade').value,note:document.getElementById('iNote').value.trim(),
@@ -1455,318 +1381,26 @@ function copyCard(btn){
   navigator.clipboard.writeText(txt).then(function(){alert('Nusxalandi! ✓');});
 }
 
-
-// ============================================================
-// MAVZULAR BO'LIMI
-// ============================================================
-var topics = [];
-var curTopicId = null;
-
-async function loadTopics(){
-  try{
-    var r = await _sb.from('topics').select('id,order_num,title,section,topic_type,duration,has_slide,slide_url,notes').order('order_num',{ascending:true});
-    if(r.error){console.error('loadTopics error:',r.error);return;}
-    topics = (r.data||[]).map(function(t){
-      return{id:t.id,orderNum:t.order_num||0,title:t.title||'',section:t.section||'',
-        topicType:t.topic_type||'nazariy',duration:t.duration||60,
-        hasSlide:t.has_slide||false,slideUrl:t.slide_url||'',notes:t.notes||''};
-    });
-    console.log('Topics loaded:',topics.length);
-    renderTopics();
-  }catch(e){console.error('loadTopics exception:',e);}
-}
-
-function topRow(t){
-  return{id:t.id,order_num:t.orderNum||0,title:t.title,section:t.section||'',
-    topic_type:t.topicType||'nazariy',duration:t.duration||60,
-    has_slide:t.hasSlide||false,slide_url:t.slideUrl||'',notes:t.notes||''};
-}
-
-async function saveTopicDB(t){
-  var r = await _sb.from('topics').upsert(topRow(t),{onConflict:'id'});
-  if(r.error)throw new Error(JSON.stringify(r.error));
-}
-async function deleteTopicDB(id){
-  var r = await _sb.from('topics').delete().eq('id',id);
-  if(r.error)console.error('deleteTopicDB:',r.error);
-}
-
-async function addTopic(){
-  var name = document.getElementById('tName').value.trim();
-  if(!name){document.getElementById('tName').focus();return;}
-  var t = {
-    id: Date.now(),
-    orderNum: parseInt(document.getElementById('tOrder').value)||topics.length+1,
-    title: name,
-    section: document.getElementById('tSecName').value.trim(),
-    topicType: document.getElementById('tType').value,
-    duration: 60, hasSlide: false, slideUrl: '', notes: document.getElementById('tNotes').value.trim()
-  };
-  topics.push(t);
-  topics.sort(function(a,b){return a.orderNum-b.orderNum;});
-  document.getElementById('topAddForm').style.display='none';
-  ['tName','tSecName','tNotes','tOrder'].forEach(function(i){document.getElementById(i).value='';});
-  renderTopics();
-  setSS('ssv','Saqlanmoqda...');
-  try{await saveTopicDB(t);setSS('sok','Saqlandi');}
-  catch(e){setSS('ser','Xato');console.error(e);}
-}
-
-async function delTopic(id){
-  if(!confirm("Bu mavzuni o'chirmoqchimisiz?"))return;
-  topics = topics.filter(function(t){return t.id!==id;});
-  cMod('topicMod');renderTopics();
-  await deleteTopicDB(id);setSS('sok',"O'chirildi");
-}
-
-function openTopic(id){
-  curTopicId = id;
-  var t = topics.find(function(t){return t.id===id;});
-  if(!t)return;
-  document.getElementById('topicModTitle').textContent = '📚 '+t.title;
-  var typeLabel = {nazariy:'Nazariy',amaliy:'Amaliy (1C)',imtihon:'Imtihon',aralash:'Aralash'};
-  var html = '<div style="background:var(--sf2);border-radius:var(--rs);padding:0.75rem;margin-bottom:0.75rem">';
-  html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">';
-  html += '<span class="badge '+(t.hasSlide?'bpd':'bup')+'">'+(t.hasSlide?'Slayd bor':'Slayd yoq')+'</span>';
-  html += '<span style="font-size:0.68rem;color:var(--tx3);background:var(--sf3);padding:0.12rem 0.45rem;border-radius:4px">'+esc(typeLabel[t.topicType]||t.topicType)+'</span>';
-  html += '</div>';
-  if(t.section)html += '<div style="font-size:0.72rem;color:var(--gold);margin-bottom:4px">'+esc(t.section)+'</div>';
-  if(t.notes)html += '<div style="font-size:0.75rem;color:var(--tx2)">'+esc(t.notes)+'</div>';
-  html += '</div>';
-  if(t.hasSlide && t.slideUrl){
-    html += '<div style="text-align:center;background:var(--sf2);border-radius:var(--rs);padding:1rem;margin:0.75rem 0">';
-    html += '<a href="'+esc(t.slideUrl)+'" target="_blank" style="background:var(--bl);color:#fff;padding:0.5rem 1rem;border-radius:var(--rs);font-size:0.82rem;text-decoration:none">Slaydni ochish</a></div>';
-  }
-  document.getElementById('topicModContent').innerHTML = html;
-  document.getElementById('topSlideUrl').value = t.slideUrl||'';
-  document.getElementById('topicMod').classList.add('open');
-}
-
-async function saveSlideUrl(){
-  var t = topics.find(function(t){return t.id===curTopicId;});
-  if(!t)return;
-  var url = document.getElementById('topSlideUrl').value.trim();
-  t.slideUrl = url;
-  t.hasSlide = url.length > 0;
-  cMod('topicMod');renderTopics();
-  setSS('ssv','Saqlanmoqda...');
-  try{await saveTopicDB(t);setSS('sok','Slayd saqlandi');}
-  catch(e){setSS('ser','Xato');}
-}
-
-function openTopicEdit(id){
-  cMod('topicMod');
-  var t = topics.find(function(t){return t.id===id;});
-  if(!t)return;
-  document.getElementById('topicEditTitle').textContent='Tahrirlash: '+t.title;
-  document.getElementById('teSection').value=t.section||'';
-  document.getElementById('teName').value=t.title||'';
-  document.getElementById('teOrder').value=t.orderNum||'';
-  document.getElementById('teType').value=t.topicType||'nazariy';
-  document.getElementById('teNotes').value=t.notes||'';
-  document.getElementById('topicEditMod').classList.add('open');
-  curTopicId = id;
-}
-
-async function saveTopicEdit(){
-  var t = topics.find(function(t){return t.id===curTopicId;});
-  if(!t)return;
-  var name = document.getElementById('teName').value.trim();
-  if(!name)return;
-  t.section = document.getElementById('teSection').value.trim();
-  t.title = name;
-  t.orderNum = parseInt(document.getElementById('teOrder').value)||t.orderNum;
-  t.topicType = document.getElementById('teType').value;
-  t.notes = document.getElementById('teNotes').value.trim();
-  cMod('topicEditMod');renderTopics();
-  setSS('ssv','Saqlanmoqda...');
-  try{await saveTopicDB(t);setSS('sok','Saqlandi');}
-  catch(e){setSS('ser','Xato');}
-}
-
-function renderTopics(){
-  var cont = document.getElementById('topicsContainer');
-  if(!cont)return;
-  var empty = document.getElementById('topEmpty');
-  var search = (document.getElementById('topSearch')||{}).value||'';
-  search = search.toLowerCase();
-  var filtered = topics.filter(function(t){
-    return !search || t.title.toLowerCase().includes(search) || (t.section||'').toLowerCase().includes(search);
-  });
-  if(!filtered.length){cont.innerHTML='';if(empty)empty.style.display='block';
-    document.getElementById('tTotal').textContent=topics.length;
-    document.getElementById('tWithSlide').textContent=topics.filter(function(t){return t.hasSlide;}).length;
-    document.getElementById('tNoSlide').textContent=topics.filter(function(t){return !t.hasSlide;}).length;
-    document.getElementById('tSections').textContent=0;
-    return;}
-  if(empty)empty.style.display='none';
-  var sections = {};
-  filtered.forEach(function(t){var sec=t.section||'Umumiy';if(!sections[sec])sections[sec]=[];sections[sec].push(t);});
-  var typeColor={nazariy:'var(--bl)',amaliy:'var(--gr)',imtihon:'var(--gold)',aralash:'var(--or)'};
-  var typeLabel={nazariy:'Nazariy',amaliy:'Amaliy 1C',imtihon:'Imtihon',aralash:'Aralash'};
-  var html='';
-  Object.keys(sections).forEach(function(sec){
-    var items=sections[sec];
-    html+='<div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">'+esc(sec)+'</span><span class="top-sect-count">'+items.length+' ta mavzu</span></div><div class="top-list">';
-    items.forEach(function(t){
-      html+='<div class="top-item" onclick="openTopic('+t.id+')">';
-      html+='<div class="top-num">'+t.orderNum+'</div>';
-      html+='<div class="top-info"><div class="top-name">'+esc(t.title)+'</div>';
-      html+='<div class="top-meta" style="color:'+typeColor[t.topicType||'nazariy']+'">'+typeLabel[t.topicType||'nazariy']+'</div></div>';
-      html+='<span class="top-slide '+(t.hasSlide?'has':'no')+'">'+(t.hasSlide?'Slayd bor':'Slaydsiz')+'</span>';
-      html+='<div class="top-actions">';
-      html+='<button class="act ex" onclick="event.stopPropagation();openTopicEdit('+t.id+')" title="Tahrirlash">edit</button>';
-      html+='<button class="act" onclick="event.stopPropagation();delTopic('+t.id+')" title="Ochirish">del</button>';
-      html+='</div></div>';
-    });
-    html+='</div></div>';
-  });
-  cont.innerHTML=html;
-  document.getElementById('tTotal').textContent=topics.length;
-  document.getElementById('tWithSlide').textContent=topics.filter(function(t){return t.hasSlide;}).length;
-  document.getElementById('tNoSlide').textContent=topics.filter(function(t){return !t.hasSlide;}).length;
-  document.getElementById('tSections').textContent=Object.keys(sections).length;
-}
-
-function expTopicsExcel(){
-  var rows=[["#","Bo'lim","Mavzu nomi","Turi","Slayd","Daqiqa","Izoh"]];
-  topics.forEach(function(t){rows.push([t.orderNum,t.section||'',t.title,t.topicType,t.hasSlide?"Ha":"Yoq",t.duration,t.notes||'']);});
-  var ws=XLSX.utils.aoa_to_sheet(rows);var wb=XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb,ws,'Mavzular');XLSX.writeFile(wb,'mavzular.xlsx');
-}
-
-// ============================================================
-// TELEGRAM YAKKA XABAR YUBORISH
-// ============================================================
-var _tgCurStudent = null;
-var TG_BOT_TOKEN = '8679843476:AAGuRp5-9lyUa-dvqqy5iSdxfqa-ttywnD8';
-
-var TG_TEMPLATES = [
-  {
-    label: "💰 To'lov eslatmasi",
-    getText: function(s) {
-      var my=gMY();var key=pKey(my.m,my.y);var p=s.payments&&s.payments[key];var amt=p?(p.amount||s.defaultAmount||0):(s.defaultAmount||0);
-      return 'Assalomu alaykum, '+s.name+'! 👋\n\nSS Accounting o\'quv markazidan eslatma:\n'+MONTHS[my.m]+' oyi uchun to\'lov: '+amt.toLocaleString('uz-UZ')+' so\'m\nHolat: '+(p&&p.paid?"✅ To'langan":"❌ To'lanmagan")+'\n\nIltimos, o\'z vaqtida to\'lovni amalga oshiring. 🙏\n\nHurmat bilan,\nSS ACCOUNTING';
-    }
-  },
-  {
-    label: "📅 Davomat eslatmasi",
-    getText: function(s) {
-      return 'Assalomu alaykum, '+s.name+'! 👋\n\nSS Accounting o\'quv markazidan xabar:\nBu hafta darsga kelmadingiz. Sababi bormi?\n\nIltimos, 📞 aloqaga chiqing.\n\nHurmat bilan,\nSS ACCOUNTING';
-    }
-  },
-  {
-    label: "📝 Imtihon eslatmasi",
-    getText: function(s) {
-      return 'Assalomu alaykum, '+s.name+'! 📚\n\nYaqin kunlarda imtihon bo\'lib o\'tadi.\nDarslarni takrorlashni unutmang!\n\nSS Accounting o\'quv markazi 🎓';
-    }
-  },
-  {
-    label: "🎉 Tabrik",
-    getText: function(s) {
-      return 'Assalomu alaykum, '+s.name+'! 🎉\n\nSS Accounting jamoasi sizni tabrikladk!\nDarslaringizda muvaffaqiyat tilaymiz! 🌟\n\nHurmat bilan,\nSS ACCOUNTING';
-    }
-  },
-  {
-    label: "⚠️ Qarzdorlik",
-    getText: function(s) {
-      var fin=calcFin(s);
-      return 'Assalomu alaykum, '+s.name+'! 👋\n\nSS Accounting o\'quv markazidan eslatma:\nSizda to\'lov qarzdorligi mavjud.\nQarz: '+fin.debt.toLocaleString('uz-UZ')+' so\'m\n\nIltimos, tez orada to\'lovni amalga oshiring.\n\nHurmat bilan,\nSS ACCOUNTING';
-    }
-  }
-];
-
-function openTgSend(id) {
-  var s = students.find(function(s){return s.id===id;});
-  if(!s) return;
-  _tgCurStudent = s;
-  document.getElementById('tgSendName').textContent = s.name;
-  document.getElementById('tgSendInfo').textContent = 'Guruh: '+(s.group||'—')+' · ID: '+(s.telegram_id||'yo\'q');
-  var noIdEl = document.getElementById('tgNoIdWarn');
-  noIdEl.style.display = s.telegram_id ? 'none' : 'block';
-  document.getElementById('tgSendBtn').disabled = !s.telegram_id;
-  // Shablonlar
-  var cont = document.getElementById('tgTmplBtns');
-  cont.innerHTML = '';
-  TG_TEMPLATES.forEach(function(t) {
-    var btn = document.createElement('button');
-    btn.className = 'tgm-tbtn';
-    btn.textContent = t.label;
-    btn.onclick = function() {
-      document.querySelectorAll('.tgm-tbtn').forEach(function(b){b.classList.remove('sel');});
-      btn.classList.add('sel');
-      document.getElementById('tgSendText').value = t.getText(s);
-    };
-    cont.appendChild(btn);
-  });
-  document.getElementById('tgSendText').value = '';
-  document.getElementById('tgSendMod').classList.add('open');
-}
-
-function closeTgSend() {
-  document.getElementById('tgSendMod').classList.remove('open');
-  _tgCurStudent = null;
-}
-
-async function doSendTg() {
-  var text = document.getElementById('tgSendText').value.trim();
-  if(!text) { tgToast('❗ Xabar bo\'sh!', 'err'); return; }
-  var s = _tgCurStudent;
-  if(!s || !s.telegram_id) { tgToast('❗ Telegram ID yo\'q!', 'err'); return; }
-  var btn = document.getElementById('tgSendBtn');
-  btn.disabled = true; btn.textContent = '⏳ Yuborilmoqda...';
-  try {
-    var res = await fetch('https://api.telegram.org/bot'+TG_BOT_TOKEN+'/sendMessage', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({chat_id: s.telegram_id, text: text})
-    });
-    var data = await res.json();
-    if(data.ok) {
-      tgToast('✅ Xabar yuborildi!', 'ok');
-      closeTgSend();
-    } else {
-      tgToast('❌ Xato: '+(data.description||'Noma\'lum'), 'err');
-    }
-  } catch(e) {
-    tgToast('❌ Tarmoq xatosi!', 'err');
-  } finally {
-    btn.disabled = false; btn.innerHTML = '✈️ Telegram Yuborish';
-  }
-}
-
-function tgToast(msg, type) {
-  var t = document.createElement('div');
-  t.className = 'tgm-toast '+(type||'ok');
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(function(){t.remove();}, 3200);
-}
-
 // ============================================================
 // BOOT — DOM tayyor bo'lgandan keyin, Supabase SDK yuklangandan keyin
 // ============================================================
 window.addEventListener('load', function(){
   // Supabase SDK yuklanganini tekshiramiz
-  var _supabaseLib = window.supabase || window.Supabase || (typeof supabase !== 'undefined' ? supabase : null);
-  // Supabase clientini yaratamiz
-  if(_supabaseLib && _supabaseLib.createClient){
-    _sb = _supabaseLib.createClient(SB_URL, SB_KEY);
-  } else {
-    console.error('Supabase yuklanmadi');
+  if(typeof window.supabase === 'undefined'){
+    alert('Supabase yuklanmadi! Internet aloqasini tekshiring.');
+    return;
   }
+  // Supabase clientini yaratamiz
+  _sb = window.supabase.createClient(SB_URL, SB_KEY);
 
   // New modals
-  ['editMod','exam4Mod','topicMod','topicEditMod'].forEach(function(id){
+  ['editMod','exam4Mod'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){
       MODS.push(id);
       el.addEventListener('click',function(e){if(e.target===this)cMod(id);});
     }
   });
-  // Telegram modal overlay yopish
-  var tgOv=document.getElementById('tgSendMod');
-  if(tgOv)tgOv.addEventListener('click',function(e){if(e.target===this)closeTgSend();});
 
   // Login
   document.getElementById('loginBtn').addEventListener('click', doLogin);
@@ -1781,6 +1415,5 @@ window.addEventListener('load', function(){
   }
 });
 </script>
-
-
-</body></html>
+</body>
+</html>
