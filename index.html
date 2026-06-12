@@ -1748,12 +1748,13 @@ function tgToast(msg, type) {
 // ============================================================
 window.addEventListener('load', function(){
   // Supabase SDK yuklanganini tekshiramiz
-  if(typeof window.supabase === 'undefined'){
+  var _supabaseLib = window.supabase || window.Supabase || (typeof supabase !== 'undefined' ? supabase : null);
+  if(!_supabaseLib || !_supabaseLib.createClient){
     alert('Supabase yuklanmadi! Internet aloqasini tekshiring.');
     return;
   }
   // Supabase clientini yaratamiz
-  _sb = window.supabase.createClient(SB_URL, SB_KEY);
+  _sb = _supabaseLib.createClient(SB_URL, SB_KEY);
 
   // New modals
   ['editMod','exam4Mod','topicMod','topicEditMod'].forEach(function(id){
