@@ -1749,12 +1749,12 @@ function tgToast(msg, type) {
 window.addEventListener('load', function(){
   // Supabase SDK yuklanganini tekshiramiz
   var _supabaseLib = window.supabase || window.Supabase || (typeof supabase !== 'undefined' ? supabase : null);
-  if(!_supabaseLib || !_supabaseLib.createClient){
-    alert('Supabase yuklanmadi! Internet aloqasini tekshiring.');
-    return;
-  }
   // Supabase clientini yaratamiz
-  _sb = _supabaseLib.createClient(SB_URL, SB_KEY);
+  if(_supabaseLib && _supabaseLib.createClient){
+    _sb = _supabaseLib.createClient(SB_URL, SB_KEY);
+  } else {
+    console.error('Supabase yuklanmadi');
+  }
 
   // New modals
   ['editMod','exam4Mod','topicMod','topicEditMod'].forEach(function(id){
