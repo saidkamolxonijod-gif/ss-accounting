@@ -669,7 +669,7 @@ function tgToast(msg,type){
 var SB_URL = 'https://nxeyesxkpjkbavbmrggx.supabase.co';
 var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54ZXllc3hrcGprYmF2Ym1yZ2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjcxNzMsImV4cCI6MjA5NDg0MzE3M30.hlq-9JYMWIgPLQSyIKATBivJ7zWtV_l1rcrt2Od4LIg';
 var USERS = { 'saidkamol':'ssaccounting2026', 'mudir':'ssadmin2026' };
-var TG_BOT_TOKEN = ''; // Bu yerga bot tokeningizni kiriting
+var TG_BOT_TOKEN = '8679843476:AAGuRp5-9lyUa-dvqqy5iSdxfqa-ttywnD8'; // Bot tokeni kiritildi
 var MONTHS = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
 
 // ============================================================
@@ -688,6 +688,9 @@ var ic=null, pc=null, bc=null, dc=null;
 // HELPERS
 // ============================================================
 function esc(s){if(!s)return'';var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML;}
+// === TIMEZONE FIX: sanalarni mahalliy vaqt sifatida o'qish/yozish uchun yordamchilar ===
+function parseLocalDate(str){if(!str)return null;var p=str.split('-');return new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));}
+function toLocalISO(d){var y=d.getFullYear();var m=String(d.getMonth()+1).padStart(2,'0');var day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
 function gMY(){return{m:parseInt(document.getElementById('mSel').value),y:parseInt(document.getElementById('ySel').value)};}
 function pKey(m,y){return y+'-'+m;}
 function dim(m,y){return new Date(y,m+1,0).getDate();}
@@ -810,7 +813,10 @@ function setF(f,btn){filt=f;document.querySelectorAll('.fb').forEach(function(b)
 var MODS=['addMod','noteMod','examMod','msgMod','debtMod','gradMod','examRepMod','phMod'];
 function cMod(id){
   document.getElementById(id).classList.remove('open');
-  if(id==='addMod'){['iName','iPhone','iGroup','iAmt','iNote'].forEach(function(i){var el=document.getElementById(i);if(el)el.value='';});document.getElementById('iGrade').value='';document.getElementById('iMonths').value='6';}
+  if(id==='addMod'){
+    ['iName','iPhone','iGroup','iAmt','iNote','iStartDate','iFirstPay','iTgId'].forEach(function(i){var el=document.getElementById(i);if(el)el.value='';});
+    document.getElementById('iGrade').value='';document.getElementById('iMonths').value='6';
+  }
 }
 MODS.forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('click',function(e){if(e.target===this)cMod(id);});});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')MODS.forEach(function(id){cMod(id);});});
@@ -819,22 +825,6 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')MODS.forEach
 // STUDENTS
 // ============================================================
 function openAdd(){document.getElementById('addMod').classList.add('open');setTimeout(function(){document.getElementById('iName').focus();},100);}
-
-async function addStudent(){
-  var name=document.getElementById('iName').value.trim();
-  if(!name){document.getElementById('iName').focus();return;}
-  var my=gMY();var key=pKey(my.m,my.y);var amt=parseInt(document.getElementById('iAmt').value)||0;
-  var s={id:Date.now(),name:name,phone:document.getElementById('iPhone').value.trim(),
-    group:document.getElementById('iGroup').value.trim(),defaultAmount:amt,
-    totalMonths:parseInt(document.getElementById('iMonths').value)||6,
-    startKey:key,joinDate:new Date().toLocaleDateString('uz-UZ'),
-    grade:document.getElementById('iGrade').value,note:document.getElementById('iNote').value.trim(),
-    payments:{},attendance:{},exams:{},graduate:null};
-  if(amt)s.payments[key]={paid:false,amount:amt};
-  students.push(s);
-  cMod('addMod');renderTable();renderAttendance();
-  sched(function(){return saveSt(s);});
-}
 
 async function delStudent(id){
   if(!confirm("O'quvchini o'chirmoqchimisiz?"))return;
@@ -926,7 +916,7 @@ function openGrad(id){
   curGradId=id;var s=students.find(function(s){return s.id===id;});var g=s.graduate||{};
   document.getElementById('gradTitle').textContent='🎓 '+s.name;
   ['gradType','gradNum','gradSerial','gradDate','gradWork','gradNote'].forEach(function(fid,i){
-    var vals=[g.type||'',g.dipNum||'',g.serial||'',g.date||new Date().toISOString().slice(0,10),g.work||'',g.note||''];
+    var vals=[g.type||'',g.dipNum||'',g.serial||'',g.date||toLocalISO(new Date()),g.work||'',g.note||''];
     document.getElementById(fid).value=vals[i];
   });
   document.getElementById('gradMod').classList.add('open');
@@ -1016,7 +1006,7 @@ function openPH(id){
   document.getElementById('phTitle').textContent='💳 '+s.name+' — To\'lov Tarixi';
   var my=gMY();document.getElementById('phMonth').value=my.m;
   document.getElementById('phAmt').value=s.defaultAmount||'';
-  document.getElementById('phDate').value=new Date().toISOString().slice(0,10);
+  document.getElementById('phDate').value=toLocalISO(new Date());
   renderPHL(s);document.getElementById('phMod').classList.add('open');
 }
 function addPH(){
@@ -1207,7 +1197,7 @@ function openEdit(id){
   document.getElementById('eGrade').value=s.grade||'';
   document.getElementById('eNote').value=s.note||'';
   document.getElementById('eJoinDate').value=s.joinDate||'';
-  if(s.startKey){var pts=s.startKey.split('-');var sy=parseInt(pts[0]),sm=parseInt(pts[1]);document.getElementById('eStartDate').value=new Date(sy,sm,1).toISOString().slice(0,10);}
+  if(s.startKey){var pts=s.startKey.split('-');var sy=parseInt(pts[0]),sm=parseInt(pts[1]);document.getElementById('eStartDate').value=toLocalISO(new Date(sy,sm,1));}
   else document.getElementById('eStartDate').value='';
   document.getElementById('editMod').classList.add('open');
   setTimeout(function(){document.getElementById('eName').focus();},100);
@@ -1227,23 +1217,22 @@ function saveEdit(){
   var jd=document.getElementById('eJoinDate').value;
   if(jd)s.joinDate=jd;
   var sd=document.getElementById('eStartDate').value;
-  if(sd){var d=new Date(sd);s.startKey=pKey(d.getMonth(),d.getFullYear());}
+  if(sd){var d=parseLocalDate(sd);s.startKey=pKey(d.getMonth(),d.getFullYear());}
   cMod('editMod');renderTable();
   sched(function(){return saveSt(s);});
 }
 
 // addStudent - boshlanish sanasi bilan
-var _origAdd=addStudent;
 async function addStudent(){
   var name=document.getElementById('iName').value.trim();
   if(!name){document.getElementById('iName').focus();return;}
   var sdVal=document.getElementById('iStartDate').value;
   var fpVal=document.getElementById('iFirstPay').value;
   var my=gMY();
-  if(sdVal){var sd=new Date(sdVal);my={m:sd.getMonth(),y:sd.getFullYear()};}
+  if(sdVal){var sd=parseLocalDate(sdVal);my={m:sd.getMonth(),y:sd.getFullYear()};}
   var key=pKey(my.m,my.y);
   var amt=parseInt(document.getElementById('iAmt').value)||0;
-  var joinDate=sdVal?new Date(sdVal).toLocaleDateString('uz-UZ'):new Date().toLocaleDateString('uz-UZ');
+  var joinDate=sdVal?parseLocalDate(sdVal).toLocaleDateString('uz-UZ'):new Date().toLocaleDateString('uz-UZ');
   var s={id:Date.now(),name:name,phone:document.getElementById('iPhone').value.trim(),
     group:document.getElementById('iGroup').value.trim(),defaultAmount:amt,
     telegram_id:(document.getElementById('iTgId')?document.getElementById('iTgId').value.trim():''),
@@ -1253,22 +1242,12 @@ async function addStudent(){
     payments:{},attendance:{},exams:{},graduate:null};
   if(amt){
     var payKey=key;
-    if(fpVal){var pd=new Date(fpVal);payKey=pKey(pd.getMonth(),pd.getFullYear());}
+    if(fpVal){var pd=parseLocalDate(fpVal);payKey=pKey(pd.getMonth(),pd.getFullYear());}
     s.payments[payKey]={paid:false,amount:amt};
   }
   students.push(s);
   cMod('addMod');renderTable();renderAttendance();
   sched(function(){return saveSt(s);});
-}
-
-// cMod - yangi maydonlarni tozalash
-var _origCmod=cMod;
-function cMod(id){
-  document.getElementById(id).classList.remove('open');
-  if(id==='addMod'){
-    ['iName','iPhone','iGroup','iAmt','iNote','iStartDate','iFirstPay','iTgId'].forEach(function(i){var el=document.getElementById(i);if(el)el.value='';});
-    document.getElementById('iGrade').value='';document.getElementById('iMonths').value='6';
-  }
 }
 
 // 4 bosqichli imtihon
