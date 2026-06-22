@@ -241,6 +241,36 @@ tr:hover td{background:rgba(255,255,255,0.012);}
 .bkinfo{margin-top:0.82rem;font-size:0.7rem;color:var(--tx3);background:var(--sf2);border-radius:8px;padding:0.68rem;text-align:left;line-height:1.75;}
 .bkinfo b{color:var(--gold);}
 .fn{margin-top:1rem;text-align:center;font-size:0.66rem;color:var(--tx3);}
+
+/* === MAVZULAR BO'LIMI === */
+.top-sect{background:var(--sf);border:1px solid var(--bd2);border-radius:var(--r);margin-bottom:1rem;overflow:hidden;}
+.top-sect-hdr{background:var(--sf2);padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid var(--bd2);}
+.top-sect-title{font-family:'Playfair Display',serif;font-size:0.88rem;font-weight:500;color:var(--gold);}
+.top-sect-count{font-size:0.7rem;color:var(--tx3);background:var(--sf3);padding:0.15rem 0.5rem;border-radius:10px;}
+.top-list{padding:0.5rem;}
+.top-item{display:flex;align-items:center;gap:10px;padding:0.62rem 0.75rem;border-radius:8px;border:1px solid transparent;margin-bottom:4px;transition:all 0.2s;cursor:pointer;}
+.top-item:hover{background:var(--sf2);border-color:var(--bd2);}
+.top-num{width:28px;height:28px;border-radius:6px;background:var(--sf2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:var(--tx3);font-weight:500;flex-shrink:0;}
+.top-info{flex:1;min-width:0;}
+.top-name{font-size:0.82rem;color:var(--tx);font-weight:500;line-height:1.35;}
+.top-meta{font-size:0.68rem;color:var(--tx3);margin-top:2px;}
+.top-slide{display:inline-flex;align-items:center;gap:3px;font-size:0.65rem;font-weight:500;padding:0.12rem 0.45rem;border-radius:4px;white-space:nowrap;}
+.top-slide.has{background:var(--grs);color:var(--gr);border:1px solid rgba(61,184,122,0.2);}
+.top-slide.no{background:var(--sf2);color:var(--tx3);border:1px solid var(--bd);}
+.top-actions{display:flex;gap:4px;flex-shrink:0;}
+.top-add-form{background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--r);padding:1rem;margin-bottom:1rem;}
+.top-add-form h4{font-size:0.82rem;font-weight:500;color:var(--tx);margin-bottom:0.75rem;}
+.top-fg{margin-bottom:0.6rem;}
+.top-fg label{display:block;font-size:0.65rem;color:var(--tx3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;}
+.top-fg input,.top-fg select,.top-fg textarea{width:100%;background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:0.8rem;padding:0.45rem 0.75rem;outline:none;}
+.top-fg input:focus,.top-fg select:focus{border-color:var(--gold);}
+.top-fg input::placeholder{color:var(--tx3);}
+.top-fg select option{background:#1c1c26;}
+.top-fr{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.top-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem;}
+.top-stat{background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);padding:0.65rem;text-align:center;}
+.top-stat-n{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:2px;}
+.top-stat-l{font-size:0.6rem;color:var(--tx3);text-transform:uppercase;}
 @media(max-width:768px){
   .stbar{grid-template-columns:repeat(3,1fr);}
   .two,.cgrid,.bkg,.gstats{grid-template-columns:1fr;}
@@ -321,6 +351,7 @@ tr:hover td{background:rgba(255,255,255,0.012);}
       <button class="tbtn" onclick="swTab('attendance',this)">📅 Davomat</button>
       <button class="tbtn" onclick="swTab('expense',this)">💸 Xarajat</button>
       <button class="tbtn" onclick="swTab('graduates',this)">🎓 Bitiruvchi</button>
+      <button class="tbtn" onclick="swTab('topics',this)">📚 Mavzular</button>
       <button class="tbtn" onclick="swTab('reports',this)">📊 Hisobot</button>
       <button class="tbtn" onclick="swTab('messages',this)">📨 Xabarlar</button>
       <button class="tbtn" onclick="swTab('backup',this)">💾 Zaxira</button>
@@ -347,6 +378,9 @@ tr:hover td{background:rgba(255,255,255,0.012);}
       <button class="fb" onclick="setF('unpaid',this)">To'lamagan ✗</button>
       <button class="fb" onclick="setF('debt',this)">Qarzdor 💰</button>
     </div>
+    <select id="groupFilter" onchange="renderTable()" style="background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:0.38rem 0.7rem;cursor:pointer;outline:none;">
+      <option value="">👥 Barcha guruhlar</option>
+    </select>
     <button class="xb g" onclick="expExcel()">📊 Excel</button>
     <button class="xb b" onclick="openDebt()">💰 Qarzlar</button>
     <button class="xb p" onclick="openExamRep()">📝 Imtihon</button>
@@ -363,6 +397,9 @@ tr:hover td{background:rgba(255,255,255,0.012);}
 </div>
 <div class="tc" id="tab-attendance">
   <div style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <select id="attGroupFilter" onchange="renderAttendance()" style="background:var(--sf);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:0.72rem;padding:0.38rem 0.7rem;cursor:pointer;outline:none;">
+      <option value="">👥 Barcha guruhlar</option>
+    </select>
     <div class="aleg">
       <span><span class="ldot" style="background:var(--gr)"></span>Keldi</span>
       <span><span class="ldot" style="background:var(--rd)"></span>Kelmadi</span>
@@ -417,6 +454,35 @@ tr:hover td{background:rgba(255,255,255,0.012);}
     <div class="ccard"><h4>💸 Daromad vs Xarajat</h4><div class="cwrap"><canvas id="cBal"></canvas></div></div>
     <div class="ccard"><h4>🎓 Diplom turlari</h4><div class="cwrap"><canvas id="cDip"></canvas></div></div>
   </div>
+</div>
+<div class="tc" id="tab-topics">
+  <div class="top-stats">
+    <div class="top-stat"><div class="top-stat-n cg" id="tTotal">0</div><div class="top-stat-l">Jami Mavzu</div></div>
+    <div class="top-stat"><div class="top-stat-n cgr" id="tWithSlide">0</div><div class="top-stat-l">Slaydli</div></div>
+    <div class="top-stat"><div class="top-stat-n cr" id="tNoSlide">0</div><div class="top-stat-l">Slaydsiz</div></div>
+    <div class="top-stat"><div class="top-stat-n ct" id="tSections">0</div><div class="top-stat-l">Bo'lim</div></div>
+  </div>
+  <div class="top-add-form" id="topAddForm" style="display:none">
+    <h4>➕ Yangi Mavzu Qo'shish</h4>
+    <div class="top-fg"><label>Bo'lim nomi</label><input type="text" id="tSecName" placeholder="Masalan: 1-oy. Buxgalteriyaga kirish"></div>
+    <div class="top-fg"><label>Mavzu nomi *</label><input type="text" id="tName" placeholder="Mavzu nomi..."></div>
+    <div class="top-fr">
+      <div class="top-fg"><label>Tartib raqami</label><input type="number" id="tOrder" placeholder="1"></div>
+      <div class="top-fg"><label>Dars turi</label><select id="tType"><option value="nazariy">Nazariy</option><option value="amaliy">Amaliy (1C)</option><option value="imtihon">Imtihon</option><option value="aralash">Aralash</option></select></div>
+    </div>
+    <div class="top-fg"><label>Izoh</label><input type="text" id="tNotes" placeholder="Qo'shimcha ma'lumot..."></div>
+    <div class="mbtns" style="margin-top:0.5rem">
+      <button class="btnc" onclick="document.getElementById('topAddForm').style.display='none'">Bekor</button>
+      <button class="btns" onclick="addTopic()">Qo'shish ✓</button>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
+    <button class="abtn" onclick="document.getElementById('topAddForm').style.display=document.getElementById('topAddForm').style.display==='none'?'block':'none'">+ Mavzu Qo'shish</button>
+    <button class="xb g" onclick="expTopicsExcel()">📊 Excel</button>
+    <div class="sw" style="flex:1"><span class="si">🔍</span><input type="text" id="topSearch" placeholder="Mavzu qidirish..." oninput="renderTopics()"></div>
+  </div>
+  <div id="topicsContainer"></div>
+  <div class="empty" id="topEmpty" style="display:none"><div style="font-size:2rem">📚</div><p>Mavzular yo'q. "Mavzu Qo'shish" tugmasini bosing!</p></div>
 </div>
 <div class="tc" id="tab-messages">
   <div id="msgTemplates">
@@ -572,6 +638,41 @@ tr:hover td{background:rgba(255,255,255,0.012);}
   <div class="mbtns"><button class="btnc" onclick="cMod('phMod')">Yopish</button></div>
 </div></div>
 
+<!-- MAVZU MODALI -->
+<div class="mov" id="topicMod"><div class="modal" style="width:520px">
+  <h3 id="topicModTitle">📚 Mavzu</h3>
+  <div id="topicModContent"></div>
+  <div style="margin-top:0.75rem">
+    <label style="display:block;font-size:0.68rem;color:var(--tx3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px">Slayd URL manzili (Google Drive, OneDrive...)</label>
+    <div style="display:flex;gap:6px">
+      <input type="text" id="topSlideUrl" placeholder="https://..." style="flex:1;background:var(--sf2);border:1px solid var(--bd2);border-radius:var(--rs);color:var(--tx);font-family:DM Sans,sans-serif;font-size:0.8rem;padding:0.45rem 0.75rem;outline:none">
+      <button class="btns" style="white-space:nowrap;padding:0.45rem 0.85rem;border-radius:var(--rs);font-family:DM Sans,sans-serif;font-size:0.8rem" onclick="saveSlideUrl()">Saqlash</button>
+    </div>
+    <div style="font-size:0.68rem;color:var(--tx3);margin-top:4px">💡 Google Slides yoki PowerPoint Online havolasini kiriting</div>
+  </div>
+  <div class="mbtns">
+    <button class="btnc" onclick="cMod('topicMod')">Yopish</button>
+    <button class="btns" style="background:var(--bl)" onclick="openTopicEdit(curTopicId)">✏️ Tahrirlash</button>
+    <button class="btns" style="background:var(--rd)" onclick="delTopic(curTopicId)">🗑 O'chirish</button>
+  </div>
+</div></div>
+
+<!-- MAVZU TAHRIRLASH MODALI -->
+<div class="mov" id="topicEditMod"><div class="modal">
+  <h3 id="topicEditTitle">✏️ Mavzuni Tahrirlash</h3>
+  <div class="top-fg"><label>Bo'lim nomi</label><input type="text" id="teSection" placeholder="Bo'lim..."></div>
+  <div class="top-fg"><label>Mavzu nomi *</label><input type="text" id="teName"></div>
+  <div class="top-fr">
+    <div class="top-fg"><label>Tartib raqami</label><input type="number" id="teOrder"></div>
+    <div class="top-fg"><label>Dars turi</label><select id="teType"><option value="nazariy">Nazariy</option><option value="amaliy">Amaliy (1C)</option><option value="imtihon">Imtihon</option><option value="aralash">Aralash</option></select></div>
+  </div>
+  <div class="top-fg"><label>Izoh</label><input type="text" id="teNotes"></div>
+  <div class="mbtns">
+    <button class="btnc" onclick="cMod('topicEditMod')">Bekor</button>
+    <button class="btns" onclick="saveTopicEdit()">Saqlash ✓</button>
+  </div>
+</div></div>
+
 <!-- TELEGRAM XABAR MODAL -->
 <div class="tgm-overlay" id="tgSendMod">
   <div class="tgm-box">
@@ -678,6 +779,8 @@ var MONTHS = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sen
 var _sb = null; // Supabase client
 var students = [];
 var expenses = [];
+var topics = [];
+var curTopicId = null;
 var filt = 'all';
 var curNoteId=null, curExamId=null, curGradId=null, curPhId=null;
 var curMsgTxt='', curMsgPhone='';
@@ -719,6 +822,18 @@ async function loadData(){
       return{id:r.id,name:r.name,amount:r.amount||0,cat:r.cat||'',note:r.note||'',m:r.m,y:r.y,date:r.date_str||''};
     });
     setSS('sok','🌐 Online · '+students.length+" o'quvchi");
+    try{
+      var r3 = await _sb.from('topics').select('id,order_num,title,section,topic_type,duration,has_slide,slide_url,notes').order('order_num',{ascending:true});
+      if(r3.error)throw new Error('Topics: '+JSON.stringify(r3.error));
+      topics = (r3.data||[]).map(function(t){
+        return{id:t.id,orderNum:t.order_num||0,title:t.title||'',section:t.section||'',
+          topicType:t.topic_type||'nazariy',duration:t.duration||60,
+          hasSlide:t.has_slide||false,slideUrl:t.slide_url||'',notes:t.notes||''};
+      });
+    }catch(te){
+      console.error('Topics yuklash xatosi (jadval mavjud emasligi mumkin):',te);
+      topics = [];
+    }
   }catch(e){
     setSS('ser','⚠️ '+e.message);
     console.error('loadData xatosi:',e);
@@ -807,10 +922,11 @@ function swTab(tab,btn){
   if(tab==='expense')renderExpenses();
   if(tab==='reports')renderReports();
   if(tab==='graduates')renderGraduates();
+  if(tab==='topics')renderTopics();
   if(tab==='messages')renderMessages();
 }
 function setF(f,btn){filt=f;document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderTable();}
-var MODS=['addMod','noteMod','examMod','msgMod','debtMod','gradMod','examRepMod','phMod'];
+var MODS=['addMod','noteMod','examMod','msgMod','debtMod','gradMod','examRepMod','phMod','topicMod','topicEditMod'];
 function cMod(id){
   document.getElementById(id).classList.remove('open');
   if(id==='addMod'){
@@ -983,7 +1099,20 @@ function renderAttendance(){
   var grid=document.getElementById('attGrid');var empty=document.getElementById('attEmpty');
   grid.innerHTML='';if(!students.length){empty.style.display='block';return;}empty.style.display='none';
   var today=new Date();var days=dim(my.m,my.y);var isCur=today.getMonth()===my.m&&today.getFullYear()===my.y;
-  students.forEach(function(s){
+  var attSel = document.getElementById('attGroupFilter');
+  if(attSel){
+    var attGroups = [...new Set(students.map(function(s){return s.group||'';}).filter(Boolean))].sort();
+    var attCurrent = attSel.value;
+    attSel.innerHTML = '<option value="">👥 Barcha guruhlar</option>';
+    attGroups.forEach(function(g){
+      var o=document.createElement('option');o.value=g;o.textContent=g;
+      if(g===attCurrent)o.selected=true;attSel.appendChild(o);
+    });
+  }
+  var attGroup = attSel ? attSel.value : '';
+  var filteredStudents = attGroup ? students.filter(function(s){return (s.group||'')===attGroup;}) : students;
+  if(!filteredStudents.length){empty.style.display='block';return;}empty.style.display='none';
+  filteredStudents.forEach(function(s){
     var att=(s.attendance&&s.attendance[key])||{};var p=0,a=0;
     Object.values(att).forEach(function(v){if(v==='present')p++;else if(v==='absent')a++;});
     var card=document.createElement('div');card.className='acard';
@@ -1045,9 +1174,12 @@ function renderPHL(s){
 
 function renderTable(){
   var my=gMY();var key=pKey(my.m,my.y);var search=document.getElementById('searchInp').value.toLowerCase();
+  var groupSel = document.getElementById('groupFilter');
+  var groupVal = groupSel ? groupSel.value : '';
   var filtered=students.filter(function(s){
     var match=s.name.toLowerCase().includes(search)||(s.phone||'').includes(search)||(s.group||'').toLowerCase().includes(search);
     if(!match)return false;
+    if(groupVal && (s.group||'')!==groupVal) return false;
     if(filt==='paid')return s.payments[key]&&s.payments[key].paid;
     if(filt==='unpaid')return!(s.payments[key]&&s.payments[key].paid);
     if(filt==='debt')return calcFin(s).debt>0;
@@ -1112,6 +1244,23 @@ function updateStats(){
   document.getElementById('sBalance').textContent=bal.toLocaleString('uz-UZ');
   document.getElementById('sBalance').style.color=bal>=0?'var(--or)':'var(--rd)';
   document.getElementById('sGrads').textContent=grads;
+  updateGroupFilter();
+}
+
+function updateGroupFilter(){
+  var sel = document.getElementById('groupFilter');
+  if(!sel) return;
+  var current = sel.value;
+  var groups = [...new Set(students.map(function(s){return s.group||'';}).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="">👥 Barcha guruhlar ('+students.length+')</option>';
+  groups.forEach(function(g){
+    var count = students.filter(function(s){return s.group===g;}).length;
+    var opt = document.createElement('option');
+    opt.value = g;
+    opt.textContent = g + " (" + count + " ta)";
+    if(g === current) opt.selected = true;
+    sel.appendChild(opt);
+  });
 }
 
 function renderReports(){
@@ -1358,6 +1507,168 @@ function mkCard(title,txt,phone){
 function copyCard(btn){
   var txt=decodeURIComponent(btn.getAttribute('data-txt'));
   navigator.clipboard.writeText(txt).then(function(){alert('Nusxalandi! ✓');});
+}
+
+// ============================================================
+// MAVZULAR BO'LIMI
+// ============================================================
+function topRow(t){
+  return{id:t.id,order_num:t.orderNum||0,title:t.title,section:t.section||'',
+    topic_type:t.topicType||'nazariy',duration:t.duration||60,
+    has_slide:t.hasSlide||false,slide_url:t.slideUrl||'',notes:t.notes||''};
+}
+
+async function saveTopicDB(t){
+  var r = await _sb.from('topics').upsert(topRow(t),{onConflict:'id'});
+  if(r.error)throw new Error(JSON.stringify(r.error));
+}
+async function deleteTopicDB(id){
+  var r = await _sb.from('topics').delete().eq('id',id);
+  if(r.error)console.error('deleteTopicDB:',r.error);
+}
+
+async function addTopic(){
+  var name = document.getElementById('tName').value.trim();
+  if(!name){document.getElementById('tName').focus();return;}
+  var t = {
+    id: Date.now(),
+    orderNum: parseInt(document.getElementById('tOrder').value)||topics.length+1,
+    title: name,
+    section: document.getElementById('tSecName').value.trim(),
+    topicType: document.getElementById('tType').value,
+    duration: 60, hasSlide: false, slideUrl: '', notes: document.getElementById('tNotes').value.trim()
+  };
+  topics.push(t);
+  topics.sort(function(a,b){return a.orderNum-b.orderNum;});
+  document.getElementById('topAddForm').style.display='none';
+  ['tName','tSecName','tNotes','tOrder'].forEach(function(i){document.getElementById(i).value='';});
+  renderTopics();
+  setSS('ssv','Saqlanmoqda...');
+  try{await saveTopicDB(t);setSS('sok','Saqlandi');}
+  catch(e){setSS('ser','Xato');console.error(e);}
+}
+
+async function delTopic(id){
+  if(!confirm("Bu mavzuni o'chirmoqchimisiz?"))return;
+  topics = topics.filter(function(t){return t.id!==id;});
+  cMod('topicMod');renderTopics();
+  await deleteTopicDB(id);setSS('sok',"O'chirildi");
+}
+
+function openTopic(id){
+  curTopicId = id;
+  var t = topics.find(function(t){return t.id===id;});
+  if(!t)return;
+  document.getElementById('topicModTitle').textContent = '📚 '+t.title;
+  var typeLabel = {nazariy:'Nazariy',amaliy:'Amaliy (1C)',imtihon:'Imtihon',aralash:'Aralash'};
+  var html = '<div style="background:var(--sf2);border-radius:var(--rs);padding:0.75rem;margin-bottom:0.75rem">';
+  html += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">';
+  html += '<span class="badge '+(t.hasSlide?'bpd':'bup')+'">'+(t.hasSlide?'Slayd bor':'Slayd yoq')+'</span>';
+  html += '<span style="font-size:0.68rem;color:var(--tx3);background:var(--sf3);padding:0.12rem 0.45rem;border-radius:4px">'+esc(typeLabel[t.topicType]||t.topicType)+'</span>';
+  html += '</div>';
+  if(t.section)html += '<div style="font-size:0.72rem;color:var(--gold);margin-bottom:4px">'+esc(t.section)+'</div>';
+  if(t.notes)html += '<div style="font-size:0.75rem;color:var(--tx2)">'+esc(t.notes)+'</div>';
+  html += '</div>';
+  if(t.hasSlide && t.slideUrl){
+    html += '<div style="text-align:center;background:var(--sf2);border-radius:var(--rs);padding:1rem;margin:0.75rem 0">';
+    html += '<a href="'+esc(t.slideUrl)+'" target="_blank" style="background:var(--bl);color:#fff;padding:0.5rem 1rem;border-radius:var(--rs);font-size:0.82rem;text-decoration:none">Slaydni ochish</a></div>';
+  }
+  document.getElementById('topicModContent').innerHTML = html;
+  document.getElementById('topSlideUrl').value = t.slideUrl||'';
+  document.getElementById('topicMod').classList.add('open');
+}
+
+async function saveSlideUrl(){
+  var t = topics.find(function(t){return t.id===curTopicId;});
+  if(!t)return;
+  var url = document.getElementById('topSlideUrl').value.trim();
+  t.slideUrl = url;
+  t.hasSlide = url.length > 0;
+  cMod('topicMod');renderTopics();
+  setSS('ssv','Saqlanmoqda...');
+  try{await saveTopicDB(t);setSS('sok','Slayd saqlandi');}
+  catch(e){setSS('ser','Xato');}
+}
+
+function openTopicEdit(id){
+  cMod('topicMod');
+  var t = topics.find(function(t){return t.id===id;});
+  if(!t)return;
+  document.getElementById('topicEditTitle').textContent='Tahrirlash: '+t.title;
+  document.getElementById('teSection').value=t.section||'';
+  document.getElementById('teName').value=t.title||'';
+  document.getElementById('teOrder').value=t.orderNum||'';
+  document.getElementById('teType').value=t.topicType||'nazariy';
+  document.getElementById('teNotes').value=t.notes||'';
+  document.getElementById('topicEditMod').classList.add('open');
+  curTopicId = id;
+}
+
+async function saveTopicEdit(){
+  var t = topics.find(function(t){return t.id===curTopicId;});
+  if(!t)return;
+  var name = document.getElementById('teName').value.trim();
+  if(!name)return;
+  t.section = document.getElementById('teSection').value.trim();
+  t.title = name;
+  t.orderNum = parseInt(document.getElementById('teOrder').value)||t.orderNum;
+  t.topicType = document.getElementById('teType').value;
+  t.notes = document.getElementById('teNotes').value.trim();
+  cMod('topicEditMod');renderTopics();
+  setSS('ssv','Saqlanmoqda...');
+  try{await saveTopicDB(t);setSS('sok','Saqlandi');}
+  catch(e){setSS('ser','Xato');}
+}
+
+function renderTopics(){
+  var cont = document.getElementById('topicsContainer');
+  if(!cont)return;
+  var empty = document.getElementById('topEmpty');
+  var search = (document.getElementById('topSearch')||{}).value||'';
+  search = search.toLowerCase();
+  var filtered = topics.filter(function(t){
+    return !search || t.title.toLowerCase().includes(search) || (t.section||'').toLowerCase().includes(search);
+  });
+  if(!filtered.length){cont.innerHTML='';if(empty)empty.style.display='block';
+    document.getElementById('tTotal').textContent=topics.length;
+    document.getElementById('tWithSlide').textContent=topics.filter(function(t){return t.hasSlide;}).length;
+    document.getElementById('tNoSlide').textContent=topics.filter(function(t){return !t.hasSlide;}).length;
+    document.getElementById('tSections').textContent=0;
+    return;}
+  if(empty)empty.style.display='none';
+  var sections = {};
+  filtered.forEach(function(t){var sec=t.section||'Umumiy';if(!sections[sec])sections[sec]=[];sections[sec].push(t);});
+  var typeColor={nazariy:'var(--bl)',amaliy:'var(--gr)',imtihon:'var(--gold)',aralash:'var(--or)'};
+  var typeLabel={nazariy:'Nazariy',amaliy:'Amaliy 1C',imtihon:'Imtihon',aralash:'Aralash'};
+  var html='';
+  Object.keys(sections).forEach(function(sec){
+    var items=sections[sec];
+    html+='<div class="top-sect"><div class="top-sect-hdr"><span class="top-sect-title">'+esc(sec)+'</span><span class="top-sect-count">'+items.length+' ta mavzu</span></div><div class="top-list">';
+    items.forEach(function(t){
+      html+='<div class="top-item" onclick="openTopic('+t.id+')">';
+      html+='<div class="top-num">'+t.orderNum+'</div>';
+      html+='<div class="top-info"><div class="top-name">'+esc(t.title)+'</div>';
+      html+='<div class="top-meta" style="color:'+typeColor[t.topicType||'nazariy']+'">'+typeLabel[t.topicType||'nazariy']+'</div></div>';
+      html+='<span class="top-slide '+(t.hasSlide?'has':'no')+'">'+(t.hasSlide?'Slayd bor':'Slaydsiz')+'</span>';
+      html+='<div class="top-actions">';
+      html+='<button class="act ex" onclick="event.stopPropagation();openTopicEdit('+t.id+')" title="Tahrirlash">✏️</button>';
+      html+='<button class="act" onclick="event.stopPropagation();delTopic('+t.id+')" title="O\'chirish">🗑</button>';
+      html+='</div></div>';
+    });
+    html+='</div></div>';
+  });
+  cont.innerHTML=html;
+  document.getElementById('tTotal').textContent=topics.length;
+  document.getElementById('tWithSlide').textContent=topics.filter(function(t){return t.hasSlide;}).length;
+  document.getElementById('tNoSlide').textContent=topics.filter(function(t){return !t.hasSlide;}).length;
+  document.getElementById('tSections').textContent=Object.keys(sections).length;
+}
+
+function expTopicsExcel(){
+  var rows=[["#","Bo'lim","Mavzu nomi","Turi","Slayd","Daqiqa","Izoh"]];
+  topics.forEach(function(t){rows.push([t.orderNum,t.section||'',t.title,t.topicType,t.hasSlide?"Ha":"Yo'q",t.duration,t.notes||'']);});
+  var ws=XLSX.utils.aoa_to_sheet(rows);var wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Mavzular');XLSX.writeFile(wb,'mavzular.xlsx');
 }
 
 // ============================================================
