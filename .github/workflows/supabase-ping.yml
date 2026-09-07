@@ -1,0 +1,17 @@
+name: Supabase Ping
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -s "https://nxeyesxkpjkbavbmrggx.supabase.co/rest/v1/students?select=count" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54ZXllc3hrcGprYmF2Ym1yZ2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjcxNzMsImV4cCI6MjA5NDg0MzE3M30.hlq-9JYMWIgPLQSyIKATBivJ7zWtV_l1rcrt2Od4LIg" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54ZXllc3hrcGprYmF2Ym1yZ2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjcxNzMsImV4cCI6MjA5NDg0MzE3M30.hlq-9JYMWIgPLQSyIKATBivJ7zWtV_l1rcrt2Od4LIg"
+          echo "Supabase pinged!"
