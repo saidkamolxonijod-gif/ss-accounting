@@ -355,6 +355,7 @@ tr:hover td{background:rgba(255,255,255,0.012);}
       <button class="tbtn" onclick="swTab('reports',this)">📊 Hisobot</button>
       <button class="tbtn" onclick="swTab('messages',this)">📨 Xabarlar</button>
       <button class="tbtn" onclick="swTab('backup',this)">💾 Zaxira</button>
+      <button class="tbtn" onclick="swTab('loans',this)">🏦 Kreditlar</button>
     </div>
     <button class="obtn" onclick="doLogout()">Chiqish</button>
   </div>
@@ -489,6 +490,44 @@ tr:hover td{background:rgba(255,255,255,0.012);}
     <div class="empty"><div style="font-size:2rem">📨</div><p>Yuklanmoqda...</p></div>
   </div>
 </div>
+
+<div class="tc" id="tab-loans">
+  <div class="card" style="margin-bottom:1rem">
+    <h4>➕ Yangi Kredit / Qarz</h4>
+    <div class="fr">
+      <div class="fg"><label>Nomi *</label><input type="text" id="loanName" placeholder="Kompyuter krediti"></div>
+      <div class="fg"><label>Turi</label><select id="loanType"><option value="kredit">🏦 Bank krediti</option><option value="qarz">👤 Shaxsiy qarz</option></select></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Umumiy summa</label><input type="number" id="loanTotal" placeholder="5000000"></div>
+      <div class="fg"><label>Oylik to'lov</label><input type="number" id="loanMonthly" placeholder="500000"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Boshlanish sanasi</label><input type="date" id="loanStart"></div>
+      <div class="fg"><label>Tugash sanasi</label><input type="date" id="loanEnd"></div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>Avval to'langan summa</label><input type="number" id="loanPaid" placeholder="0 (yangi kredit bo'lsa)"></div>
+      <div class="fg"><label>Izoh</label><input type="text" id="loanNote" placeholder="Qo'shimcha ma'lumot..."></div>
+    </div>
+    <button class="btns" onclick="addLoan()" style="margin-top:0.75rem">+ Qo'shish</button>
+  </div>
+
+  <div class="card" style="margin-bottom:1rem">
+    <h4>⚙️ Admin Telegram ID sozlamalari</h4>
+    <div class="fr">
+      <div class="fg"><label>Admin 1 Telegram ID</label><input type="text" id="adminId1" placeholder="123456789" oninput="saveAdminIds()"></div>
+      <div class="fg"><label>Admin 2 Telegram ID</label><input type="text" id="adminId2" placeholder="987654321" oninput="saveAdminIds()"></div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--tx3);margin-top:0.5rem">⚠️ Muddati 3 kun qolganida ikkalangizga Telegram xabar yuboriladi</p>
+  </div>
+
+  <div class="card">
+    <h4>📋 Kreditlar va Qarzlar</h4>
+    <div id="loanList"><div class="empty"><div style="font-size:2rem">🏦</div><p>Kredit yoki qarz yo'q.</p></div></div>
+  </div>
+</div>
+
 <div class="tc" id="tab-backup">
   <div class="bkg">
     <div class="bkc">
@@ -694,6 +733,168 @@ tr:hover td{background:rgba(255,255,255,0.012);}
 
 <script>
 
+
+// ============================================================
+// KREDIT / QARZ TIZIMI
+// ============================================================
+
+function saveAdminIds(){
+  var id1 = document.getElementById('adminId1').value.trim();
+  var id2 = document.getElementById('adminId2').value.trim();
+  ADMIN_IDS = [id1, id2];
+  localStorage.setItem('ss_admin_ids', JSON.stringify(ADMIN_IDS));
+}
+
+function loadAdminIds(){
+  var saved = localStorage.getItem('ss_admin_ids');
+  if(saved){
+    ADMIN_IDS = JSON.parse(saved);
+    var el1 = document.getElementById('adminId1');
+    var el2 = document.getElementById('adminId2');
+    if(el1) el1.value = ADMIN_IDS[0]||'';
+    if(el2) el2.value = ADMIN_IDS[1]||'';
+  }
+}
+
+function addLoan(){
+  var name = document.getElementById('loanName').value.trim();
+  if(!name){alert('Nomini kiriting!');return;}
+  var loan = {
+    id: Date.now(),
+    name: name,
+    type: document.getElementById('loanType').value,
+    total: parseInt(document.getElementById('loanTotal').value)||0,
+    monthly: parseInt(document.getElementById('loanMonthly').value)||0,
+    start: document.getElementById('loanStart').value,
+    end: document.getElementById('loanEnd').value,
+    note: document.getElementById('loanNote').value.trim(),
+    paid: parseInt(document.getElementById('loanPaid').value)||0,
+    payments: []
+  };
+  loans.push(loan);
+  saveLoansToDB();
+  renderLoans();
+  ['loanName','loanTotal','loanMonthly','loanStart','loanEnd','loanNote','loanPaid'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.value='';
+  });
+}
+
+function deleteLoan(id){
+  if(!confirm("O'chirishni tasdiqlaysizmi?"))return;
+  loans = loans.filter(function(l){return l.id!==id;});
+  saveLoansToDB();
+  renderLoans();
+}
+
+function addLoanPayment(id){
+  var loan = loans.find(function(l){return l.id===id;});
+  if(!loan)return;
+  var amt = parseInt(prompt("To'lov summasi:", loan.monthly))||0;
+  if(!amt)return;
+  loan.paid += amt;
+  loan.payments.push({date: new Date().toLocaleDateString('uz-UZ'), amount: amt});
+  saveLoansToDB();
+  renderLoans();
+}
+
+async function saveLoansToDB(){
+  try{
+    var key = 'loans';
+    var existing = await _sb.from('topics').select('*').eq('title', '__loans__').single();
+    if(existing.data){
+      await _sb.from('topics').update({content: JSON.stringify(loans)}).eq('title','__loans__');
+    } else {
+      await _sb.from('topics').insert({title:'__loans__', content: JSON.stringify(loans), created_at: new Date().toISOString()});
+    }
+  }catch(e){
+    localStorage.setItem('ss_loans', JSON.stringify(loans));
+  }
+}
+
+async function loadLoansFromDB(){
+  try{
+    var res = await _sb.from('topics').select('*').eq('title','__loans__').single();
+    if(res.data && res.data.content){
+      loans = JSON.parse(res.data.content)||[];
+    }
+  }catch(e){
+    var saved = localStorage.getItem('ss_loans');
+    if(saved) loans = JSON.parse(saved)||[];
+  }
+  renderLoans();
+}
+
+function renderLoans(){
+  var cont = document.getElementById('loanList');
+  if(!cont)return;
+  if(!loans.length){
+    cont.innerHTML='<div class="empty"><div style="font-size:2rem">🏦</div><p>Kredit yoki qarz yo\'q.</p></div>';
+    return;
+  }
+  cont.innerHTML = loans.map(function(l){
+    var pct = l.total>0?Math.min(100,Math.round((l.paid/l.total)*100)):0;
+    var remaining = Math.max(0, l.total - l.paid);
+    var endDate = l.end ? new Date(l.end) : null;
+    var today = new Date();
+    var daysLeft = endDate ? Math.ceil((endDate-today)/(1000*60*60*24)) : null;
+    var urgentClass = daysLeft!==null && daysLeft<=3 ? 'style="border-color:var(--rd)"' : '';
+    var daysHtml = daysLeft!==null ? ('<span style="color:'+(daysLeft<=3?'var(--rd)':daysLeft<=7?'var(--or)':'var(--gr)')+'">⏰ '+(daysLeft<=0?'Muddati o\'tgan!':daysLeft+' kun qoldi')+'</span>') : '';
+    return '<div class="card" '+urgentClass+' style="margin-bottom:0.75rem;padding:1rem">'+
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">'+
+        '<div>'+
+          '<div style="font-weight:600;font-size:0.95rem">'+(l.type==='kredit'?'🏦':'👤')+' '+l.name+'</div>'+
+          '<div style="font-size:0.72rem;color:var(--tx3);margin-top:2px">'+(l.note||'')+'</div>'+
+        '</div>'+
+        '<div style="text-align:right">'+daysHtml+'</div>'+
+      '</div>'+
+      '<div style="margin:0.75rem 0">'+
+        '<div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px">'+
+          '<span>To\'langan: <b style="color:var(--gr)">'+l.paid.toLocaleString('uz-UZ')+' so\'m</b></span>'+
+          '<span>Qoldi: <b style="color:var(--rd)">'+remaining.toLocaleString('uz-UZ')+' so\'m</b></span>'+
+        '</div>'+
+        '<div style="background:var(--sf3);border-radius:4px;height:6px">'+
+          '<div style="background:var(--gr);height:6px;border-radius:4px;width:'+pct+'%"></div>'+
+        '</div>'+
+        '<div style="font-size:0.68rem;color:var(--tx3);margin-top:3px">'+pct+'% to\'langan | Oylik: '+l.monthly.toLocaleString('uz-UZ')+' so\'m</div>'+
+      '</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+        '<button class="btnc" style="font-size:0.75rem;padding:0.3rem 0.8rem" onclick="addLoanPayment('+l.id+')">💰 To\'lov qilish</button>'+
+        '<button class="act" style="color:var(--rd);border-color:var(--rd);font-size:0.75rem" onclick="deleteLoan('+l.id+')">🗑 O\'chirish</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+// Muddati 3 kun qolganda Telegram eslatma
+async function checkLoanDeadlines(){
+  if(!TG_BOT_TOKEN)return;
+  var today = new Date();
+  loans.forEach(async function(l){
+    if(!l.end)return;
+    var endDate = new Date(l.end);
+    var daysLeft = Math.ceil((endDate-today)/(1000*60*60*24));
+    if(daysLeft===3||daysLeft===2||daysLeft===1||daysLeft===0){
+      var remaining = Math.max(0,l.total-l.paid);
+      var msg = '⚠️ SS ACCOUNTING — Kredit/Qarz Eslatmasi!\n\n'+
+        '🏦 '+l.name+'\n'+
+        '⏰ Muddati: '+l.end+(daysLeft<=0?' (O\'tib ketdi!)':' ('+daysLeft+' kun qoldi)')+'\n'+
+        '💰 Qolgan summa: '+remaining.toLocaleString('uz-UZ')+' so\'m\n'+
+        '📅 Oylik to\'lov: '+l.monthly.toLocaleString('uz-UZ')+' so\'m';
+      
+      var adminIds = JSON.parse(localStorage.getItem('ss_admin_ids')||'["",""]');
+      for(var i=0;i<adminIds.length;i++){
+        if(!adminIds[i])continue;
+        try{
+          await fetch('https://api.telegram.org/bot'+TG_BOT_TOKEN+'/sendMessage',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({chat_id:adminIds[i],text:msg})
+          });
+        }catch(e){console.error('Eslatma yuborilmadi:',e);}
+      }
+    }
+  });
+}
+
 // ============================================================
 // TELEGRAM XABAR YUBORISH
 // ============================================================
@@ -771,6 +972,7 @@ var SB_URL = 'https://nxeyesxkpjkbavbmrggx.supabase.co';
 var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im54ZXllc3hrcGprYmF2Ym1yZ2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjcxNzMsImV4cCI6MjA5NDg0MzE3M30.hlq-9JYMWIgPLQSyIKATBivJ7zWtV_l1rcrt2Od4LIg';
 var USERS = { 'saidkamol':'ssaccounting2026', 'mudir':'ssadmin2026' };
 var TG_BOT_TOKEN = '8679843476:AAGuRp5-9lyUa-dvqqy5iSdxfqa-ttywnD8'; // Bot tokeni kiritildi
+var ADMIN_IDS = ['', '']; // Admin 1 va Admin 2 Telegram ID larini shu yerga kiriting
 var MONTHS = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sentabr','Oktabr','Noyabr','Dekabr'];
 
 // ============================================================
@@ -778,6 +980,7 @@ var MONTHS = ['Yanvar','Fevral','Mart','Aprel','May','Iyun','Iyul','Avgust','Sen
 // ============================================================
 var _sb = null; // Supabase client
 var students = [];
+var loans = [];
 var expenses = [];
 var topics = [];
 var curTopicId = null;
